@@ -28,15 +28,35 @@ function monthAmount() {
         }
     }
 }
-function shiftedDate() {
-    return 'TBA date: ';
+function shiftedDate(shift) {
+    let year = '';
+    let month = '';
+    const value = {
+        fromYear: parseInt(selector.fromYear.value),
+        fromMonth: parseInt(selector.fromMonth.value) - 1,
+    };
+    const firstYearCeiling = 12 - value.fromMonth;
+
+    if (shift < firstYearCeiling) {
+        year = value.fromYear;
+        month = value.fromMonth + 1 + shift;
+    }
+    else {
+        shift = shift - firstYearCeiling;
+        const yearDifference = parseInt(shift / 12);
+        const monthDifference = shift - 12 * yearDifference + 1;
+        year = value.fromYear + yearDifference + 1;
+        month = monthDifference;
+    }
+    month = leadingZeros(month, 2);
+    return `${year}.${month}: `;
 }
 function doIt() {
     let returnText = '';
     const months = monthAmount();
     if (typeof months === 'number')
         for (let i = 0; i < months; i++) {
-            returnText += shiftedDate();
+            returnText += shiftedDate(i);
             returnText += leadingZeros(i.toString(16).toUpperCase(), parseInt(selector.size.value));
             if (i !== months - 1) returnText += '\n';
         }
