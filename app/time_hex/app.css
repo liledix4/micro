@@ -1,0 +1,67 @@
+* {box-sizing: border-box;}
+:root {
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+}
+body {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: #222222;
+}
+a {
+    color: #009444;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+p:first-child {margin-top: 0;}
+p:last-child {margin-bottom: 0;}
+input {
+    border: 2px solid #333333;
+    border-radius: .25em;
+    color: inherit;
+    font-size: .875rem;
+    background-color: #00000000;
+    outline: none;
+    font-family: 'JetBrains Mono', monospace;
+    padding: .25em .5em;
+}
+.input {
+    border-bottom: 2px solid #333333;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+.input-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.input-row > span {
+    min-width: 44px;
+    text-align: right;
+}
+.input-row > .year {
+    width: 100px;
+}
+.input-row > .month {
+    width: 60px;
+}
+#result {
+    white-space: pre-wrap;
+    height: 100%;
+    overflow: auto;
+    padding: 20px;
+    margin: 0;
+}
