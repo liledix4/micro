@@ -35,14 +35,14 @@ function shiftedDate(shift) {
         fromYear: parseInt(selector.fromYear.value),
         fromMonth: parseInt(selector.fromMonth.value) - 1,
     };
-    const firstYearCeiling = 12 - value.fromMonth;
+    const firstYearRemainingMonths = 12 - value.fromMonth;
 
-    if (shift < firstYearCeiling) {
+    if (shift < firstYearRemainingMonths) {
         year = value.fromYear;
         month = value.fromMonth + 1 + shift;
     }
     else {
-        shift = shift - firstYearCeiling;
+        shift = shift - firstYearRemainingMonths;
         const yearDifference = parseInt(shift / 12);
         const monthDifference = shift - 12 * yearDifference + 1;
         year = value.fromYear + yearDifference + 1;
