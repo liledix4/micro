@@ -3,6 +3,7 @@ const selector = {
     toMonth: document.getElementById('to-month'),
     fromYear: document.getElementById('from-year'),
     fromMonth: document.getElementById('from-month'),
+    submitButton: document.getElementById('submit'),
     size: document.getElementById('size'),
 };
 const result = document.getElementById('result');
@@ -65,7 +66,5 @@ function doIt() {
     else console.log(months);
     result.innerText = returnText;
 }
-Object.keys(selector).forEach(singleSelector => {
-    selector[singleSelector].addEventListener('input', doIt);
-});
+selector.submitButton.addEventListener('click', doIt);
 doIt();

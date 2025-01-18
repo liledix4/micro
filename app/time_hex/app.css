@@ -31,8 +31,34 @@ input {
     font-size: .875rem;
     background-color: #00000000;
     outline: none;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: inherit;
     padding: .25em .5em;
+    transition: all .4s;
+}
+input:hover {
+    border-color: #444444;
+}
+input:focus {
+    border-color: #009444;
+    box-shadow: 0 0 10px #00944488,
+                0 0 10px #00944488 inset;
+}
+input[type='button'] {
+    border-color: #00000000;
+    box-shadow: none;
+    cursor: pointer;
+    background-color: #333333;
+}
+input[type='button']:hover {
+    border-color: #009444;
+    box-shadow: 0 0 10px #00944488,
+                0 0 10px #00944488 inset;
+}
+input[type='button']:active {
+    background-color: #009444;
+    box-shadow: 0 0 10px #00944488,
+                0 0 10px #00944488 inset;
+    color: white;
 }
 .input {
     border-bottom: 2px solid #333333;
