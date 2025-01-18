@@ -11,6 +11,7 @@ let appsList = [
 const selector = {
     appsList: document.querySelector('body > .sidebar > .apps-list'),
     appsListSearch: document.querySelector('body > .sidebar > .search'),
+    appsListCompactCheckbox: document.querySelector('body > .sidebar input.compact'),
     app: document.querySelector('body > .app-body > .app'),
     appTitleBar: document.querySelector('body > .app-body > .title-bar'),
 }
@@ -71,9 +72,18 @@ function appSearch(event) {
         selector.appsList.classList.remove(classListLoading);
     }, 500);
 }
+function appsListCompactMode(event) {
+    const checkbox = event.currentTarget.checked;
+    const classToToggle = 'compact-mode';
+    if (checkbox === true)
+        selector.appsList.classList.add(classToToggle);
+    else
+        selector.appsList.classList.remove(classToToggle);
+}
 
 
 selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
     appsListItem.addEventListener('click', openApp);
 });
 selector.appsListSearch.addEventListener('input', appSearch);
+selector.appsListCompactCheckbox.addEventListener('change', appsListCompactMode);
