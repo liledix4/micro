@@ -78,9 +78,17 @@ body > .sidebar > .apps-list > .item {
     cursor: pointer;
     padding: .5rem 1rem;
     border-bottom: 2px solid #333333;
+    max-height: 250px;
+    transition: all .4s;
+    overflow: hidden;
 }
 body > .sidebar > .apps-list > .item.search-hide {
-    display: none;
+    max-height: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom-width: 0;
+    opacity: 0;
+    transform: scale(.9);
 }
 body > .sidebar > .apps-list > .item.active {
     cursor: auto;
@@ -89,10 +97,13 @@ body > .sidebar > .apps-list > .item.active {
 body > .sidebar > .apps-list > .item > .title {
     font-weight: bold;
     font-size: 1.125rem;
+    transition: all .4s;
 }
 body > .sidebar > .apps-list > .item > .description {
+    max-height: 200px;
     font-size: .75rem;
     overflow: hidden;
+    transition: all .4s;
 }
 
 

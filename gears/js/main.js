@@ -7,6 +7,11 @@ let appsList = [
         title: 'Time Hex',
         description: 'Get the list of ordered hex values of months between two dates.',
     },
+    {
+        id: 'test',
+        title: 'Test',
+        description: '',
+    },
 ];
 const selector = {
     appsList: document.querySelector('body > .sidebar > .apps-list'),
@@ -24,12 +29,18 @@ appsList = appsList.sort((a, b) => {
 
 
 appsList.forEach(app => {
-    selector.appsList.innerHTML += `
-        <div class='item' open='${app.id}'>
-            <div class='title'>${app.title}</div>
-            <div class='description'>${app.description}</div>
-        </div>
-    `;
+    let id = '';
+    let title = '';
+    let description = '';
+
+    if (app.id)
+        id = ` open='${app.id}'`;
+    if (app.title)
+        title = `<div class='title'>${app.title}</div>`;
+    if (app.description)
+        description = `<div class='description'>${app.description}</div>`;
+
+    selector.appsList.innerHTML += `<div class='item'${id}>${title}${description}</div>`;
 });
 
 
