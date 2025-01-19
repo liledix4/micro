@@ -21,6 +21,11 @@ a {
 a:hover {
     text-decoration: underline;
 }
+hr {
+    border: none;
+    border-top: 2px solid #333333;
+    margin: 1em 0;
+}
 
 
 body > .sidebar {
@@ -149,7 +154,7 @@ body > .sidebar > .apps-list.compact-mode > .item > .title {
 body > .sidebar > .apps-list.compact-mode > .item > .description {
     font-size: 0;
     opacity: 0;
-    user-select: none;
+    user-select: none !important;
     width: 0;
 }
 

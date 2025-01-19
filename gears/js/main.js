@@ -3,6 +3,11 @@ import { sortByMultipleCriterias } from "../modules/sort.js";
 
 let appsList = [
     {
+        id: 'make_color_transparent',
+        title: 'Make Color Transparent',
+        description: 'Load the image and see white color disappearing! (nothing is uploaded anywhere)<hr>Testing!!',
+    },
+    {
         id: 'time_hex',
         title: 'Time Hex',
         description: 'Get the list of ordered hex values of months between two dates.',
