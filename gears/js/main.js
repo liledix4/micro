@@ -8,6 +8,11 @@ let appsList = [
         description: 'Load the image and see white color disappearing! (nothing is uploaded anywhere)<hr>Testing!!',
     },
     {
+        id: 'quick_calc',
+        title: 'Quick Calculator',
+        description: 'Slightly faster than your average calc.',
+    },
+    {
         id: 'time_hex',
         title: 'Time Hex',
         description: 'Get the list of ordered hex values of months between two dates.',
