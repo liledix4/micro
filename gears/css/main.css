@@ -80,12 +80,34 @@ body > .sidebar > .apps-list > .item {
     gap: 5px;
     cursor: pointer;
     padding: .5rem 1rem;
-    border-bottom: 2px solid #333333;
+    border: 2px solid #33333300;
+    border-top-color: #333333;
     transition: all .4s;
+    user-select: none;
+}
+body > .sidebar > .apps-list > .item:first-child,
+body > .sidebar > .apps-list > .item:hover + .item,
+body > .sidebar > .apps-list > .item:active + .item {
+    border-top-color: #33333300;
+}
+body > .sidebar > .apps-list > .item:not(.active):hover,
+body > .sidebar > .apps-list.compact-mode > .item:not(.active):hover {
+    border-color: #009444;
+    box-shadow: 0 0 10px #00944488,
+                0 0 10px #00944488 inset;
+    z-index: 2;
+}
+body > .sidebar > .apps-list > .item:not(.active):active,
+body > .sidebar > .apps-list.compact-mode > .item:not(.active):active {
+    border-color: #009444;
+    background-color: #009444;
+    box-shadow: 0 0 20px #009444;
+    z-index: 2;
 }
 body > .sidebar > .apps-list > .item.active {
     cursor: auto;
     background-color: #333333;
+    user-select: auto;
 }
 body > .sidebar > .apps-list > .item > .title {
     width: 100%;
@@ -100,7 +122,7 @@ body > .sidebar > .apps-list > .item > .description {
 }
 body > .sidebar > .apps-list > .item.search-hide {
     cursor: default;
-    user-select: none;
+    user-select: none !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     border-bottom-width: 0;
@@ -114,13 +136,15 @@ body > .sidebar > .apps-list > .item.search-hide > * {
 
 
 body > .sidebar > .apps-list.compact-mode > .item {
-    padding-top: .25rem;
-    padding-bottom: .25rem;
+    padding-top: .125rem;
+    padding-bottom: .125rem;
     gap: 0;
+    border-width: 1px;
+    border-bottom-color: #33333300;
 }
 body > .sidebar > .apps-list.compact-mode > .item > .title {
     font-weight: normal;
-    font-size: .875rem;
+    font-size: .75rem;
 }
 body > .sidebar > .apps-list.compact-mode > .item > .description {
     font-size: 0;
