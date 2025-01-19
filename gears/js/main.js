@@ -8,6 +8,11 @@ let appsList = [
         description: 'Load the image and see white color disappearing! (nothing is uploaded anywhere)<hr>Testing!!',
     },
     {
+        id: 'music_text',
+        title: 'Music Text',
+        description: 'Magically turn text into music! (if you figure out how it works ;)',
+    },
+    {
         id: 'quick_calc',
         title: 'Quick Calculator',
         description: 'Slightly faster than your average calc.',
