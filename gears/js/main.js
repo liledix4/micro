@@ -51,18 +51,20 @@ appsList.forEach(app => {
 
 function openApp(event) {
     const target = event.currentTarget;
-    const activeClass = 'active';
-    if (!target.classList.value.match(activeClass)) {
+    const classActive = 'active';
+    const classAppFocus = 'app-focus';
+    document.querySelector('body').classList.add(classAppFocus);
+    if (!target.classList.value.match(classActive)) {
         const id = target.getAttribute('open');
         const title = target.querySelector('.title').innerText;
-        const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${activeClass}`);
+        const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${classActive}`);
         selector.app.src = `./app/${id}`;
         selector.appTitleBar.innerHTML = `<span class='hide-if-sidebar-is-opened'><span>liledix4 Micro</span> -> </span><span class='focus'>${title}</span>`;
         if (previouslyActiveListItem)
             previouslyActiveListItem.forEach(i => {
-                i.classList.remove(activeClass);
+                i.classList.remove(classActive);
             });
-        target.classList.add(activeClass);
+        target.classList.add(classActive);
     }
 }
 
@@ -103,3 +105,6 @@ selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
 });
 selector.appsListSearch.addEventListener('input', appSearch);
 selector.appsListCompactCheckbox.addEventListener('change', appsListCompactMode);
+selector.appTitleBar.addEventListener('click', () => {
+    document.querySelector('body').classList.remove('app-focus');
+});

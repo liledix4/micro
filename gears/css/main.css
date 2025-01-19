@@ -44,6 +44,7 @@ body > .sidebar {
     border-right: 2px solid #333333;
     min-width: 300px;
     max-width: 300px;
+    transition: all .4s;
 }
 body > .sidebar > .branding {
     padding: 1rem 0;
@@ -185,12 +186,13 @@ body > .app-body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    transition: right .4s;
 }
 body > .app-body > .title-bar {
     padding: .5rem 1rem;
     border-bottom: 2px solid #333333;
 }
-body:not(.sidebar-hidden) > .app-body > .title-bar > .hide-if-sidebar-is-opened {
+body:not(.sidebar-hidden, .app-focus) > .app-body > .title-bar > .hide-if-sidebar-is-opened {
     display: none;
 }
 body > .app-body > .title-bar > .focus {
@@ -199,4 +201,34 @@ body > .app-body > .title-bar > .focus {
 body > .app-body > iframe.app {
     border: none;
     height: 100%;
+}
+
+
+@media all and (max-width: 800px) {
+    body {background-color: black;}
+    body > .sidebar {
+        position: absolute;
+        top: 0; bottom: 0; left: 0;
+        width: 100%;
+        min-width: 0;
+        max-width: unset;
+        background-color: #222222;
+    }
+    body > .app-body {
+        position: absolute;
+        top: 0; bottom: 0; right: -100%;
+        z-index: 1;
+        background-color: #222222;
+    }
+    body.app-focus > .sidebar {
+        left: -50%;
+        transform: scale(.9);
+        opacity: 0;
+    }
+    body.app-focus > .app-body {
+        right: 0;
+    }
+    .app-body > .title-bar > .hide-if-sidebar-is-opened {
+        display: initial !important;
+    }
 }
