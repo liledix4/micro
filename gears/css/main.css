@@ -102,7 +102,6 @@ body > .sidebar > .apps-list > .item > .title {
 body > .sidebar > .apps-list > .item > .description {
     max-height: 200px;
     font-size: .75rem;
-    overflow: hidden;
     transition: all .4s;
 }
 
@@ -117,7 +116,9 @@ body > .sidebar > .apps-list.compact-mode > .item > .title {
     font-size: .875rem;
 }
 body > .sidebar > .apps-list.compact-mode > .item > .description {
-    max-height: 0;
+    font-size: 0;
+    opacity: 0;
+    user-select: none;
 }
 
 
