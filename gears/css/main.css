@@ -100,6 +100,7 @@ body > .sidebar > .apps-list > .item > .title {
     transition: all .4s;
 }
 body > .sidebar > .apps-list > .item > .description {
+    width: 100%;
     max-height: 200px;
     font-size: .75rem;
     transition: all .4s;
@@ -119,6 +120,7 @@ body > .sidebar > .apps-list.compact-mode > .item > .description {
     font-size: 0;
     opacity: 0;
     user-select: none;
+    width: 0;
 }
 
 
