@@ -125,8 +125,8 @@ body > .sidebar > .apps-list > .item.search-hide {
     user-select: none !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    border-bottom-width: 0;
-    border-bottom-color: #33333300;
+    border-top-width: 0 !important;
+    border-top-color: #33333300 !important;
     gap: 0;
 }
 body > .sidebar > .apps-list > .item.search-hide > * {
