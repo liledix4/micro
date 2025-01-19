@@ -7,11 +7,6 @@ let appsList = [
         title: 'Time Hex',
         description: 'Get the list of ordered hex values of months between two dates.',
     },
-    {
-        id: 'test',
-        title: 'Test',
-        description: '',
-    },
 ];
 const selector = {
     appsList: document.querySelector('body > .sidebar > .apps-list'),
