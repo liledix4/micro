@@ -52,7 +52,7 @@ function openApp(event) {
         const title = target.querySelector('.title').innerText;
         const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${classActive}`);
         selector.app.src = `./app/${id}`;
-        selector.appTitleBar.innerHTML = `<span class='hide-if-sidebar-is-opened'><span>liledix4 Micro</span> -> </span><span class='focus'>${title}</span>`;
+        selector.appTitleBar.innerHTML = `<span class='hide-if-sidebar-is-opened'><span>liledix4 Micro</span> ➜ </span><span class='focus'>${title}</span>`;
         if (previouslyActiveListItem)
             previouslyActiveListItem.forEach(i => {
                 i.classList.remove(classActive);

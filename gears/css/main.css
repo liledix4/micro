@@ -71,8 +71,11 @@ body > .sidebar > .search {
     color: inherit;
     background-color: #00000000;
     outline: none;
+    transition: all .4s;
 }
 body > .sidebar > .search:focus {
+    border-left-width: 2px;
+    border-right-width: 2px;
     border-color: #009444;
     box-shadow: 0 0 10px #00944488,
                 0 0 10px #00944488 inset;
@@ -106,8 +109,8 @@ body > .sidebar > .apps-list > .item {
     transition: all .4s;
     user-select: none;
 }
-body > .sidebar > .apps-list > .item:hover + .item,
-body > .sidebar > .apps-list > .item:active + .item {
+body > .sidebar > .apps-list > .item:not(.active):hover + .item,
+body > .sidebar > .apps-list > .item:not(.active):active + .item {
     border-top-color: #33333300;
 }
 body > .sidebar > .apps-list > .item:not(.active):hover,
@@ -196,8 +199,9 @@ body > .app-body {
 body > .app-body > .title-bar {
     padding: .5rem 1rem;
     border-bottom: 2px solid #333333;
+    transition: all .4s;
 }
-body:not(.sidebar-hidden, .app-focus) > .app-body > .title-bar > .hide-if-sidebar-is-opened {
+body:not(.sidebar-hidden) > .app-body > .title-bar > .hide-if-sidebar-is-opened {
     display: none;
 }
 body > .app-body > .title-bar > .focus {
@@ -233,6 +237,42 @@ body > .app-body > iframe.app {
     }
     body.app-focus > .app-body {
         right: 0;
+    }
+    body > .sidebar > .apps-list > .item.active {
+        cursor: pointer;
+    }
+    body > .sidebar > .apps-list > .item.active:hover {
+        background-color: #00944411;
+        border-color: #00944444;
+        box-shadow: -44px 0 44px #00944444 inset;
+    }
+    body > .sidebar > .apps-list > .item.active:active {
+        background-color: #00944422;
+        border-color: #009444;
+        box-shadow: 100px 0 100px #009444 inset;
+    }
+    body > .sidebar > .apps-list > .item.active:hover + .item {
+        border-top-color: #00944444;
+    }
+    body > .sidebar > .apps-list > .item.active:active + .item {
+        border-top-color: #009444;
+    }
+    .app-body > .title-bar {
+        cursor: pointer;
+    }
+    .app-body > .title-bar:hover {
+        background-color: #00944411;
+        border-bottom-color: #009444;
+        box-shadow: 0 0 10px #00944488,
+                    0 -4px 4px #00944444 inset;
+        z-index: 444;
+    }
+    .app-body > .title-bar:active {
+        background-color: #009444;
+        border-bottom-color: #009444;
+        color: white;
+        box-shadow: 0 0 44px #009444;
+        z-index: 444;
     }
     .app-body > .title-bar > .hide-if-sidebar-is-opened {
         display: initial !important;
