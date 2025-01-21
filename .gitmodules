@@ -1,0 +1,6 @@
+[submodule "gears/modules/js_mime_presets"]
+	path = gears/modules/js_mime_presets
+	url = https://github.com/liledix4/js_mime_presets
+[submodule "gears/modules/js_xhr_ajax"]
+	path = gears/modules/js_xhr_ajax
+	url = https://github.com/liledix4/js_xhr_ajax

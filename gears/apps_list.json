@@ -1,0 +1,27 @@
+[
+    {
+        "id": "get_steam_client_links",
+        "title": "Get Steam Client Links",
+        "description": "Paste URLs and get clickable links that open Steam Client."
+    },
+    {
+        "id": "make_color_transparent",
+        "title": "Make Color Transparent",
+        "description": "Load the image and see white color disappearing! (nothing is uploaded anywhere)<hr>Testing!!"
+    },
+    {
+        "id": "music_text",
+        "title": "Music Text",
+        "description": "Magically turn text into music! (if you figure out how it works ;)"
+    },
+    {
+        "id": "quick_calc",
+        "title": "Quick Calculator",
+        "description": "Slightly faster than your average calc."
+    },
+    {
+        "id": "time_hex",
+        "title": "Time Hex",
+        "description": "Get the list of ordered hex values of months between two dates."
+    }
+]

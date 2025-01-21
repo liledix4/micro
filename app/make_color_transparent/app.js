@@ -1,4 +1,4 @@
-import { makeColorTransparent } from "../../modules/make_color_transparent.js";
+import { makeColorTransparent } from "../../gears/modules/make_color_transparent.js";
 
 const selectors = {
     image: {

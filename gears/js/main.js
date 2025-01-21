@@ -1,28 +1,7 @@
+import { readTextFile } from "../modules/js_xhr_ajax/xhr_ajax.js";
 import { sortByMultipleCriterias } from "../modules/sort.js";
 
 
-let appsList = [
-    {
-        id: 'make_color_transparent',
-        title: 'Make Color Transparent',
-        description: 'Load the image and see white color disappearing! (nothing is uploaded anywhere)<hr>Testing!!',
-    },
-    {
-        id: 'music_text',
-        title: 'Music Text',
-        description: 'Magically turn text into music! (if you figure out how it works ;)',
-    },
-    {
-        id: 'quick_calc',
-        title: 'Quick Calculator',
-        description: 'Slightly faster than your average calc.',
-    },
-    {
-        id: 'time_hex',
-        title: 'Time Hex',
-        description: 'Get the list of ordered hex values of months between two dates.',
-    },
-];
 const selector = {
     appsList: document.querySelector('body > .sidebar > .apps-list'),
     appsListSearch: document.querySelector('body > .sidebar > .search'),
@@ -33,25 +12,34 @@ const selector = {
 let timeout = {appSearch: undefined};
 
 
-appsList = appsList.sort((a, b) => {
-    return sortByMultipleCriterias(a, b, ['id', 'title', 'description']);
-});
+readTextFile(
+    {
+        url: 'gears/apps_list.json'
+    },
+    response => {
+        let appsList = JSON.parse(response);
+        appsList = appsList.sort((a, b) => {
+            return sortByMultipleCriterias(a, b, ['id', 'title', 'description']);
+        });
+        appsList.forEach(app => {
+            let id = '';
+            let title = '';
+            let description = '';
+
+            if (app.id)
+                id = ` open='${app.id}'`;
+            if (app.title)
+                title = `<div class='title'>${app.title}</div>`;
+            if (app.description)
+                description = `<div class='description'>${app.description}</div>`;
+
+            selector.appsList.innerHTML += `<div class='item'${id}>${title}${description}</div>`;
+        });
+        setEvents();
+    }
+);
 
 
-appsList.forEach(app => {
-    let id = '';
-    let title = '';
-    let description = '';
-
-    if (app.id)
-        id = ` open='${app.id}'`;
-    if (app.title)
-        title = `<div class='title'>${app.title}</div>`;
-    if (app.description)
-        description = `<div class='description'>${app.description}</div>`;
-
-    selector.appsList.innerHTML += `<div class='item'${id}>${title}${description}</div>`;
-});
 
 
 function openApp(event) {
@@ -72,8 +60,6 @@ function openApp(event) {
         target.classList.add(classActive);
     }
 }
-
-
 function appSearch(event) {
     const input = event.currentTarget.value.toUpperCase();
     const attrItemID = 'open';
@@ -103,13 +89,13 @@ function appsListCompactMode(event) {
     else
         selector.appsList.classList.remove(classToToggle);
 }
-
-
-selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
-    appsListItem.addEventListener('click', openApp);
-});
-selector.appsListSearch.addEventListener('input', appSearch);
-selector.appsListCompactCheckbox.addEventListener('change', appsListCompactMode);
-selector.appTitleBar.addEventListener('click', () => {
-    document.querySelector('body').classList.remove('app-focus');
-});
+function setEvents() {
+    selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
+        appsListItem.addEventListener('click', openApp);
+    });
+    selector.appsListSearch.addEventListener('input', appSearch);
+    selector.appsListCompactCheckbox.addEventListener('change', appsListCompactMode);
+    selector.appTitleBar.addEventListener('click', () => {
+        document.querySelector('body').classList.remove('app-focus');
+    });
+}
