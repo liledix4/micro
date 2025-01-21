@@ -35,6 +35,7 @@ function main(response) {
         selector.appsList.innerHTML += `<div class='item'${id}>${title}${description}</div>`;
     });
     setEvents();
+    selector.appsListSearch.focus();
     openAppWithAnchorURL();
 }
 function setEvents() {
