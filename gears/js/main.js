@@ -62,8 +62,7 @@ function openApp(id, target) {
     const classAppFocus = 'app-focus';
     document.querySelector('body').classList.add(classAppFocus);
     if (!target.classList.value.match(classActive)) {
-        if (!id)
-            id = target.getAttribute('open');
+        if (!id) id = target.getAttribute('open');
         const title = target.querySelector('.title').innerText;
         const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${classActive}`);
         selector.app.src = `./app/${id}`;
@@ -73,8 +72,15 @@ function openApp(id, target) {
                 i.classList.remove(classActive);
             });
         target.classList.add(classActive);
+        changePageTitle(title);
         location.hash = id;
     }
+}
+function changePageTitle(text) {
+    let result = '';
+    if (text !== undefined) result += text + ' ︱ ';
+    result += 'liledix4 Micro';
+    document.title = result;
 }
 function appSearch(event) {
     const input = event.currentTarget.value.toUpperCase();
