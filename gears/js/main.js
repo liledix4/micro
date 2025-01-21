@@ -14,7 +14,7 @@ let timeout = {appSearch: undefined};
 
 readTextFile(
     {
-        url: 'app/apps_list.json'
+        url: 'app/index.json'
     },
     response => {
         let appsList = JSON.parse(response);
