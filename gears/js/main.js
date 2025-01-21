@@ -12,43 +12,58 @@ const selector = {
 let timeout = {appSearch: undefined};
 
 
-readTextFile(
-    {
-        url: 'app/index.json'
-    },
-    response => {
-        let appsList = JSON.parse(response);
-        appsList = appsList.sort((a, b) => {
-            return sortByMultipleCriterias(a, b, ['id', 'title', 'description']);
-        });
-        appsList.forEach(app => {
-            let id = '';
-            let title = '';
-            let description = '';
-
-            if (app.id)
-                id = ` open='${app.id}'`;
-            if (app.title)
-                title = `<div class='title'>${app.title}</div>`;
-            if (app.description)
-                description = `<div class='description'>${app.description}</div>`;
-
-            selector.appsList.innerHTML += `<div class='item'${id}>${title}${description}</div>`;
-        });
-        setEvents();
-    }
-);
+readTextFile({url: 'app/index.json'}, main);
 
 
+function main(response) {
+    let appsList = JSON.parse(response);
+    appsList = appsList.sort((a, b) => {
+        return sortByMultipleCriterias(a, b, ['id', 'title', 'description']);
+    });
+    appsList.forEach(app => {
+        let id = '';
+        let title = '';
+        let description = '';
 
+        if (app.id)
+            id = ` open='${app.id}'`;
+        if (app.title)
+            title = `<div class='title'>${app.title}</div>`;
+        if (app.description)
+            description = `<div class='description'>${app.description}</div>`;
 
-function openApp(event) {
-    const target = event.currentTarget;
+        selector.appsList.innerHTML += `<div class='item'${id}>${title}${description}</div>`;
+    });
+    setEvents();
+    openAppWithAnchorURL();
+}
+function setEvents() {
+    selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
+        appsListItem.addEventListener('click', openAppOnListItemClick);
+    });
+    selector.appsListSearch.addEventListener('input', appSearch);
+    selector.appsListCompactCheckbox.addEventListener('change', appsListCompactMode);
+    selector.appTitleBar.addEventListener('click', () => {
+        document.querySelector('body').classList.remove('app-focus');
+    });
+}
+function openAppWithAnchorURL() {
+    const hash = location.hash.replace(/^#/, '');
+    if (hash !== '')
+        openApp(hash);
+}
+function openAppOnListItemClick(event) {
+    openApp(undefined, event.currentTarget);
+}
+function openApp(id, target) {
+    if (id === undefined && target === undefined) return;
+    if (target === undefined) target = document.querySelector(`*[open='${id}']`);
     const classActive = 'active';
     const classAppFocus = 'app-focus';
     document.querySelector('body').classList.add(classAppFocus);
     if (!target.classList.value.match(classActive)) {
-        const id = target.getAttribute('open');
+        if (!id)
+            id = target.getAttribute('open');
         const title = target.querySelector('.title').innerText;
         const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${classActive}`);
         selector.app.src = `./app/${id}`;
@@ -58,6 +73,7 @@ function openApp(event) {
                 i.classList.remove(classActive);
             });
         target.classList.add(classActive);
+        location.hash = id;
     }
 }
 function appSearch(event) {
@@ -88,14 +104,4 @@ function appsListCompactMode(event) {
         selector.appsList.classList.add(classToToggle);
     else
         selector.appsList.classList.remove(classToToggle);
-}
-function setEvents() {
-    selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
-        appsListItem.addEventListener('click', openApp);
-    });
-    selector.appsListSearch.addEventListener('input', appSearch);
-    selector.appsListCompactCheckbox.addEventListener('change', appsListCompactMode);
-    selector.appTitleBar.addEventListener('click', () => {
-        document.querySelector('body').classList.remove('app-focus');
-    });
 }
