@@ -79,13 +79,17 @@ body > .sidebar > .search:focus {
 body > .sidebar > .compact-wrapper {
     padding: .5rem 1rem;
     text-align: center;
-    border-bottom: 2px solid #333333;
 }
 
 
 body > .sidebar > .apps-list {
     height: 100%;
     overflow: auto;
+    border-top: 2px solid #33333300;
+    transition: border .4s;
+}
+body > .sidebar > .apps-list.compact-mode {
+    border-top-color: #333333;
 }
 body > .sidebar > .apps-list.search-loading {
     opacity: .4;
@@ -101,7 +105,6 @@ body > .sidebar > .apps-list > .item {
     transition: all .4s;
     user-select: none;
 }
-body > .sidebar > .apps-list > .item:first-child,
 body > .sidebar > .apps-list > .item:hover + .item,
 body > .sidebar > .apps-list > .item:active + .item {
     border-top-color: #33333300;
