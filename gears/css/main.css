@@ -217,7 +217,7 @@ body > .app-body > iframe.app {
         min-width: 0;
         max-width: unset;
         background-color: #222222;
-        border: none;
+        border-right-width: 0;
     }
     body > .app-body {
         position: absolute;
