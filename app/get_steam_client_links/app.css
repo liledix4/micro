@@ -37,6 +37,7 @@ p:last-child {margin-bottom: 0;}
     outline: none;
     font-family: 'JetBrains Mono', monospace;
     padding: 20px;
+    border-radius: 0;
 }
 #result {
     height: 100%;

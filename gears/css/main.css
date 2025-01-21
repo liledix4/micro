@@ -62,6 +62,7 @@ body > .sidebar > .branding .main-description {
 }
 body > .sidebar > .search {
     border: 2px solid #333333;
+    border-radius: 0;
     border-left-width: 0;
     border-right-width: 0;
     padding: .5rem 1rem;
