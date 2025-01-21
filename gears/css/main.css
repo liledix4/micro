@@ -160,7 +160,8 @@ body > .sidebar > .apps-list.compact-mode > .item > .description {
     user-select: none !important;
     width: 0;
 }
-body > .sidebar > .apps-list.compact-mode > .item hr {
+body > .sidebar > .apps-list.compact-mode > .item hr,
+body > .sidebar > .apps-list > .item.search-hide hr {
     margin: 0;
     border-width: 0;
     border-top-color: #33333300;

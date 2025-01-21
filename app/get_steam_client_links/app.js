@@ -11,6 +11,9 @@ let glob_timeout;
 let glob_timeout_scroll;
 let glob_values = [];
 
+doIt();
+setEvents();
+
 function addLinks() {
     if (glob_values && glob_values.length > 0) {
         if (glob_i < glob_values.length) {
@@ -27,7 +30,7 @@ function addLinks() {
                     }
                 }
                 sel_result.innerHTML += addHTML;
-                sel_status.innerText = `${glob_values.length} Steam URLs found, ${glob_i} URLs loaded.`;
+                sel_status.innerHTML = `${glob_values.length} Steam URLs found, ${glob_i} URLs loaded. <i>Scroll down to load more.</i>`;
                 glob_timeout = setTimeout(addLinks, conf_loadPauses);
             }
         }
@@ -76,7 +79,8 @@ function doIt() {
     }
 }
 
-sel_input.addEventListener('input', doIt);
-sel_result.addEventListener('scroll', scroll);
-window.addEventListener('resize', scroll);
-doIt();
+function setEvents() {
+    sel_input.addEventListener('input', doIt);
+    sel_result.addEventListener('scroll', scroll);
+    window.addEventListener('resize', scroll);
+}
