@@ -80,8 +80,8 @@ function openApp(id, target) {
     const classActive = 'active';
     const classAppFocus = 'app-focus';
 
+    document.querySelector('body').classList.add(classAppFocus);
     if (!target.classList.value.match(classActive)) {
-        document.querySelector('body').classList.add(classAppFocus);
         const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${classActive}`);
         selector.app.src = `./app/${id}`;
         selector.appTitleBar.innerHTML = `<span class='hide-if-sidebar-is-opened'><span>liledix4 Micro</span> ➜ </span><span class='focus'>${title}</span>`;
