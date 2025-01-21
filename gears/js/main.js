@@ -10,6 +10,7 @@ const selector = {
     appTitleBar: document.querySelector('body > .app-body > .title-bar'),
 }
 let timeout = {appSearch: undefined};
+let clickOnAppListItemOpensNewWindow = false;
 
 
 readTextFile({url: 'app/index.json'}, main);
@@ -39,6 +40,8 @@ function main(response) {
     openAppWithAnchorURL();
 }
 function setEvents() {
+    document.addEventListener('keydown', keyToOpenAppInNewWindow);
+    document.addEventListener('keyup', keyToOpenAppInNewWindow);
     selector.appsList.querySelectorAll('.item').forEach(appsListItem => {
         appsListItem.addEventListener('click', openAppOnListItemClick);
     });
@@ -47,6 +50,12 @@ function setEvents() {
     selector.appTitleBar.addEventListener('click', () => {
         document.querySelector('body').classList.remove('app-focus');
     });
+}
+function keyToOpenAppInNewWindow(event) {
+    if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+        if (event.type === 'keydown') clickOnAppListItemOpensNewWindow = true;
+        else if (event.type === 'keyup') clickOnAppListItemOpensNewWindow = false;
+    }
 }
 function openAppWithAnchorURL() {
     const hash = location.hash.replace(/^#/, '');
@@ -59,12 +68,20 @@ function openAppOnListItemClick(event) {
 function openApp(id, target) {
     if (id === undefined && target === undefined) return;
     if (target === undefined) target = document.querySelector(`*[open='${id}']`);
+    if (id === undefined) id = target.getAttribute('open');
+    const title = target.querySelector('.title').innerText;
+
+    if (clickOnAppListItemOpensNewWindow) {
+        window.open('app/' + id, title, 'height=600,width=400,menubar=no,location=no,toolbar=no,status=no');
+        clickOnAppListItemOpensNewWindow = false;
+        return;
+    }
+
     const classActive = 'active';
     const classAppFocus = 'app-focus';
-    document.querySelector('body').classList.add(classAppFocus);
+
     if (!target.classList.value.match(classActive)) {
-        if (!id) id = target.getAttribute('open');
-        const title = target.querySelector('.title').innerText;
+        document.querySelector('body').classList.add(classAppFocus);
         const previouslyActiveListItem = selector.appsList.querySelectorAll(`.item.${classActive}`);
         selector.app.src = `./app/${id}`;
         selector.appTitleBar.innerHTML = `<span class='hide-if-sidebar-is-opened'><span>liledix4 Micro</span> ➜ </span><span class='focus'>${title}</span>`;

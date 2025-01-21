@@ -1,4 +1,5 @@
 * {
+    position: relative;
     box-sizing: border-box;
 }
 :root {
@@ -88,9 +89,14 @@ body > .sidebar > .compact-wrapper {
 
 body > .sidebar > .apps-list {
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     border-top: 2px solid #33333300;
-    transition: border .4s;
+    opacity: .4;
+    transition: all .4s;
+}
+body > .sidebar:hover > .apps-list {
+    overflow: auto;
+    opacity: 1;
 }
 body > .sidebar > .apps-list.compact-mode {
     border-top-color: #333333;
@@ -191,6 +197,22 @@ body > .sidebar > .apps-list > .item.search-hide > * {
 }
 
 
+body > .sidebar > .shift_hint {
+    background-color: #333333;
+    position: absolute;
+    bottom: .25rem; left: .25rem; right: .25rem;
+    border-radius: .25rem;
+    text-align: center;
+    font-size: .75rem;
+    padding: .5rem 0;
+    transition: all .4s;
+    overflow: hidden;
+}
+body > .sidebar:hover > .shift_hint {
+    bottom: -4rem;
+}
+
+
 body > .app-body {
     display: flex;
     flex-direction: column;
@@ -214,6 +236,15 @@ body > .app-body > iframe.app {
 }
 
 
+@media (any-pointer: coarse) {
+    body > .sidebar > .apps-list {
+        overflow: auto;
+        opacity: 1;
+    }
+    body > .sidebar > .shift_hint {
+        bottom: -4rem;
+    }
+}
 @media all and (max-width: 800px) {
     body {background-color: black;}
     body > .sidebar {
