@@ -49,7 +49,7 @@ body {
 #result {
     overflow-wrap: anywhere;
     white-space: pre-wrap;
-    font-size: 4rem;
+    font-size: 5rem;
     overflow: auto;
     padding: 1rem;
     margin: 0;
@@ -74,6 +74,7 @@ body {
         border-right: none;
         border-radius: 0;
         width: 100%;
+        font-size: 1.5rem;
     }
     .equals {
         display: none;
@@ -83,6 +84,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 3rem;
     }
     #message {
         width: 100%;

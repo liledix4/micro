@@ -99,6 +99,7 @@ body > .sidebar > .apps-list.search-loading {
     opacity: .4;
 }
 body > .sidebar > .apps-list > .item {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 5px;
