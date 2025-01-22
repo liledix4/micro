@@ -82,7 +82,7 @@ function doIt() {
     const input = sel_input.value;
 
     if (input !== undefined && input !== null) {
-        glob_values = input.match(/https?:\/\/store\.steampowered\.com[0-9A-Za-z_=&#\/\?\-]*/g);
+        glob_values = input.match(/https?:\/\/store\.steampowered\.com[0-9A-Za-z_=%&#\/\?\-]*/g);
         if (glob_values) {
             sel_status.innerText = `${glob_values.length} Steam URLs found. Loading...`;
             addLinks();
