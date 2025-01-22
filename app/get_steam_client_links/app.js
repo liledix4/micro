@@ -21,11 +21,22 @@ function addLinks() {
                 let addHTML = '';
                 for (let i = 0; i < conf_loadLinks; i++) {
                     if (glob_values[glob_i]) {
-                        const appID = glob_values[glob_i].match(/^https:\/\/store\.steampowered\.com\/app\/(\d+)/)[1];
-                        let linkText = glob_values[glob_i].replace(/https:\/\/store\.steampowered\.com\/app\/\d+\/?/,'').replaceAll('_',' ');
-                        if (linkText === '') linkText = '<i>(no title)</i>';
-                        else if (linkText.match(/^[^0-9A-Za-z]*$/)) linkText = '<i>(no title? or proper title contains logographs?)</i>';
-                        addHTML += `<a href='steam://openurl/${glob_values[glob_i]}'><div>ID ${appID} – ${linkText}</div></a>`;
+                        const currURL = glob_values[glob_i].replace('http://','https://'); // Fixes HTTP to HTTPS
+                        const matchApp = currURL.match(/^https:\/\/store\.steampowered\.com\/app\/\d+(\/[0-9A-Za-z_]*)?/);
+                        if (matchApp) {
+                            const currURLStripped = matchApp[0];
+                            const appID = currURLStripped.match(/^https:\/\/store\.steampowered\.com\/app\/(\d+)/)[1];
+                            let linkText = currURLStripped.replace(/https:\/\/store\.steampowered\.com\/app\/\d+\/?/,'').replaceAll('_',' ');
+                            if (linkText === '')
+                                linkText = '<i>(no title)</i>';
+                            else if (linkText.match(/^[^0-9A-Za-z]*$/))
+                                linkText = '<i>(no title? or proper title contains logographs?)</i>';
+                            addHTML += `<a href='steam://openurl/${currURLStripped}'><div>ID ${appID} – ${linkText}</div></a>`;
+                        }
+                        else {
+                            const linkText = currURL.replace(/https:\/\/store\.steampowered\.com\/?/,'');
+                            addHTML += `<a href='steam://openurl/${currURL}'><div>Steam – ${linkText}</div></a>`;
+                        }
                         glob_i++;
                     }
                 }
@@ -71,7 +82,7 @@ function doIt() {
     const input = sel_input.value;
 
     if (input !== undefined && input !== null) {
-        glob_values = input.match(/https:\/\/store\.steampowered\.com\/app\/\d+(\/[0-9A-Za-z_]*)?/g);
+        glob_values = input.match(/https?:\/\/store\.steampowered\.com[0-9A-Za-z_&#\/\?\-]*/g);
         if (glob_values) {
             sel_status.innerText = `${glob_values.length} Steam URLs found. Loading...`;
             addLinks();
