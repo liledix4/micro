@@ -33,12 +33,17 @@ const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\
 // 2DO Printing
 // 2DO Save in local storage and retrieve from it
 
+// 2DO Create a standalone module/library for converting plain text into JSON-compatible object
+// 2DO Input timeout
+
 
 let globCharacterShortcuts = {};
 let globScreenplayArray = [];
 let globUnclosedComment = false;
 
 
+if (localStorage['2fountain_rawtext'])
+  sel_input.value = localStorage['2fountain_rawtext'];
 if (sel_input.value !== '')
   doIt();
 zoomReset();
@@ -50,6 +55,7 @@ function doIt() {
   sel_result.innerText = '';
   let result = '';
   const rawText = sel_input.value;
+  localStorage.setItem('2fountain_rawtext', rawText);
 
   getListOfCharacters(rawText);
   const rawTextWithoutFeaturing = rawText.replace(regexFeaturing, '');
