@@ -7,7 +7,127 @@
     <link rel="stylesheet" href="./app.css">
 </head>
 <body>
-    TBA
+    <h1>NOT WORKING YET!!!!</h1>
+    <h2>Guide</h2>
+    <ul>
+        <li>You can quickly switch modes with <b>Tab</b> key.</li>
+        <li>Live Performance Mode:<ul>
+            <li>You can use MIDI keyboard, or you can use a computer keyboard.</li>
+            <li><b>Page Up</b> – increase octave.</li>
+            <li><b>Page Down</b> – decrease octave.</li>
+            <li>Hold <b>Shift</b> to temporarily play notes with higher octave.</li>
+            <li>Hold <b>Ctrl</b> to temporarily play notes with lower octave.</li>
+            <li>Key mapping for the computer keyboard:
+                <div class="keyboard_mapping">
+                    <div class="row">
+                        <div class="gray"><span>1</span></div>
+                        <div><span>2</span><span>C#</span></div>
+                        <div><span>3</span><span>D#</span></div>
+                        <div class="gray"><span>4</span></div>
+                        <div><span>5</span><span>F#</span></div>
+                        <div><span>6</span><span>G#</span></div>
+                        <div><span>7</span><span>A#</span></div>
+                        <div class="gray"><span>8</span></div>
+                        <div><span>9</span><span>C#</span></div>
+                        <div><span>0</span><span>D#</span></div>
+                        <div class="gray"><span>-</span></div>
+                        <div><span>=</span><span>F#</span></div>
+                    </div>
+                    <div class="row">
+                        <div><span>q</span><span>C</span></div>
+                        <div><span>w</span><span>D</span></div>
+                        <div><span>e</span><span>E</span></div>
+                        <div><span>r</span><span>F</span></div>
+                        <div><span>t</span><span>G</span></div>
+                        <div><span>y</span><span>A</span></div>
+                        <div><span>u</span><span>B</span></div>
+                        <div><span>i</span><span>C</span></div>
+                        <div><span>o</span><span>D</span></div>
+                        <div><span>p</span><span>E</span></div>
+                        <div><span>[</span><span>F</span></div>
+                        <div><span>]</span><span>G</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="gray"><span>a</span></div>
+                        <div><span>s</span><span>C#</span></div>
+                        <div><span>d</span><span>D#</span></div>
+                        <div class="gray"><span>f</span></div>
+                        <div><span>g</span><span>F#</span></div>
+                        <div><span>h</span><span>G#</span></div>
+                        <div><span>j</span><span>A#</span></div>
+                        <div class="gray"><span>k</span></div>
+                        <div><span>l</span><span>C#</span></div>
+                        <div><span>;</span><span>D#</span></div>
+                        <div class="gray"><span>'</span></div>
+                    </div>
+                    <div class="row">
+                        <div><span>z</span><span>C</span></div>
+                        <div><span>x</span><span>D</span></div>
+                        <div><span>c</span><span>E</span></div>
+                        <div><span>v</span><span>F</span></div>
+                        <div><span>b</span><span>G</span></div>
+                        <div><span>n</span><span>A</span></div>
+                        <div><span>m</span><span>B</span></div>
+                        <div><span>,</span><span>C</span></div>
+                        <div><span>.</span><span>D</span></div>
+                        <div><span>/</span><span>E</span></div>
+                    </div>
+                </div>
+            </li>
+        </ul></li>
+        <li>Music Text Mode:<ul>
+            <li>Aforementioned key mapping represents notes in text.</li>
+            <li>Functional keys are working as usual. Including: <b>arrows</b>, <b>Backspace</b>, <b>Delete</b>, <b>Ctrl</b>, <b>Alt</b>, <b>Shift</b>, <b>Home</b>, <b>End</b>, <b>Page Up</b>, <b>Page Down</b>.</li>
+            <li><b>Spacebar</b> plays music text starting from the cursor point. However, <b>Alt+Space</b> allows to enter whitespaces. In the text, all whitespaces are ignored, even new line breaks (<b>Enter</b> just makes a line break).<ul>
+                <li>However, there is a mode that treats every whitespace character as pause. See below.</li>
+            </ul></li>
+            <li><b>Numbered F keys:</b> you can assign presets to them (music text snippets that can be quickly pasted like <b>Ctrl+V</b>). Holding <b>Shift</b> key in combination with F keys allows to use more than 12 presets if you assign a sequence of F keys to them, making it possible to have as many presets in quick access as you want! (given that you remember sequences)</li>
+            <li><b>Insert</b> adds the last used preset to the music text.</li>
+            <li><b>Special symbols:</b><ul>
+                <li><b>{Curly brackets}</b> – you can change properties of the song itself right in the middle of music text. Separated by whitespace.<ul>
+                    <li><b>O</b> – starting number of octave.</li>
+                    <li><b>P</b> – pitch, followed by number of semitones that can be positive or negative.</li>
+                    <li><b>V</b> – volume in percents.</li>
+                    <li><b>WSP</b> – every whitespace character is treated as pause. Values are only 1 (for true) and 0 (for false). Line breaks are not treated as pauses and they're still ignored.</li>
+                    <li>Use <b>backward slash (\)</b> after any property to cancel changed effects and reset them to initial values.</li>
+                </ul></li>
+                <li><b>Underline (_)</b> – pause.</li>
+                <li><b>Uppercase PPP, PP, P, MP, MF, F, FF, FFF</b> – dynamics.</li>
+                <li><b>Angle brackets</b> – increase or decrease octave.</li>
+                <li><b>Star (*)</b> – extends note/pause by half.</li>
+                <li><b>Sharp (#)</b> – increases the pitch by semitone.</li>
+                <li><b>At (@)</b> – decreases the pitch by semitone.</li>
+                <li><b>`</b> – continues playing the note.</li>
+                <li><b>Tilde (~)</b> – further notes are played continuously (not individually) until interrupted by percent (%).</li>
+                <li><b>Percent (%)</b> – further notes are played individually (not continuously) until interrupted by tilde (~).</li>
+                <li><b>(Round brackets)</b> – create a chord. Inside these brackets, enter multiple note sequences separated by double-colon (:) to define simultaneous playing with a single instrument.<ul>
+                    <li>Alternatively, you can use shorthand chord names (like FMAJ#4), enter all characters as uppercase.</li>
+                </ul></li>
+                <li><b>[Square brackets]</b> – numbers inside them define the exact length of the played note or pause.</li>
+                <li><b>Exclamation mark (!)</b> – brings an accent to the note (it's played louder).</li>
+                <li><b>Question mark (?)</b> – reduces an accent from the note (it's played quieter).</li>
+                <li><b>Pipe (|)</b> – separates tracks (ends the current track and starts from the new one that plays simultaneously with the ended one).</li>
+                <li><b>\\ Double backslashes</b> – comment. Not played in the music, ignored until the end of the line.</li>
+                <li><b>Uppercase PZ</b> – pizzicato.</li>
+                <li><b>Uppercase ST</b> – staccato.</li>
+                <li><b>Uppercase SUS</b> – sustain.</li>
+                <li><b>Uppercase V+</b> – volume up.</li>
+                <li><b>Uppercase V_</b> – volume down.</li>
+                <li><b>Uppercase R</b> – ringing. Nothing interrupts the notes, they're played even after the end of their lengths (however, volume slowly lowers down to imitate sound fading away like it's a stringed instrument).</li>
+                <li><b>Uppercase NR</b> – no ringing. Cancels the aforementioned effect.</li>
+                <li><b>Uppercase L</b> – start of the loop. By default there's only one repetition, but you can use [square brackets] to define how many times the portion of the music sequence should be repeated.</li>
+                <li><b>Uppercase LE</b> – end of the loop.</li>
+                <li><b>Uppercase IR</b> – randomize intensity for following notes. Use [square brackets] to set percentage of randomizing.</li>
+                <li><b>Uppercase T</b> – set tempo of the whole song. Use [square brackets] to set BPM. You can use syntax for gradual change by note length: [120 64] (second argument means that the tempo will gradually change to 120 BPM during 64 notes of length).</li>
+            </ul></li>
+        </ul></li>
+        <li>Cypher Mode:<ul>
+            <li>You can convert music text into a human-readable text of your choice! For later de-cyphering of human-readable text into music text, you'll get a key text that contains a sequence of the changed characters.<ul>
+                <li>The very beginning of the key text contains regex subset of characters.</li>
+                <li>#TBA</li>
+            </ul></li>
+        </ul></li>
+    </ul>
     <script type="module" src="./app.js"></script>
 </body>
 </html>

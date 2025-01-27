@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+* {box-sizing: border-box;}
+:root {
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 12pt;
+}
+body {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  background-color: #222222;
+}
+
+
+#input {
+  display: block;
+  min-height: 100%;
+  width: 400px;
+  resize: horizontal;
+  border: 0;
+  border-right: 2px solid #333333;
+  color: inherit;
+  font-size: .75rem;
+  background-color: #00000000;
+  outline: none;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 20px;
+  border-radius: 0;
+}
+
+
+body > .right-pane {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 4444;
+  overflow: hidden;
+}
+.right-pane .zoom {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2px solid #333333;
+  padding-right: .5rem;
+  user-select: none;
+  overflow: hidden;
+}
+.zoom #zoom-number {
+  padding: .5rem;
+  text-align: center;
+  min-width: 60px;
+  max-width: 60px;
+  cursor: pointer;
+}
+.zoom #zoom-number:hover {
+  background-color: #333333;
+}
+.zoom #zoom {
+  flex-grow: 1;
+  transition: filter 1s, accent-color 1s;
+}
+
+
+#result {
+  flex-grow: 1;
+  flex-shrink: 4444;
+  white-space: pre-wrap;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  padding: 20px;
+  font-family: 'Courier Prime', 'Courier New Regular', 'Courier New', 'JetBrains Mono', monospace;
+  font-weight: normal;
+  outline: none;
+  transition: font-size .2s;
+}
+#result *:not(note) {
+  position: relative;
+  display: inline-block;
+}
+#result *:hover {
+  background-color: #333333;
+}
+#result scene {
+  width: calc(.6em * 57);
+  color: cornflowerblue;
+  font-weight: bold;
+}
+#result action {
+  width: calc(.6em * 57);
+  color: aqua;
+}
+#result transition {
+  width: calc(.6em * 57);
+  text-align: right;
+  color: dodgerblue;
+}
+#result note {
+  font-style: italic;
+  color: darkslategray;
+}
+#result character {
+  margin-left: calc(.6em * 20);
+  width: calc(.6em * 32);
+  color: burlywood;
+}
+#result dialogue-block {
+  margin-left: calc(.6em * 10);
+  width: calc(.6em * 36);
+}
+#result dialogue-block parenthetical {
+  margin-left: calc(.6em * 6);
+  width: calc(.6em * 25);
+  color: cadetblue;
+  text-indent: -.6em;
+}
+#result dialogue-block dialogue {
+  color: beige;
+}

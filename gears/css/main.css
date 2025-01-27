@@ -72,7 +72,7 @@ body > .sidebar > .search {
     color: inherit;
     background-color: #00000000;
     outline: none;
-    transition: all .4s;
+    transition: border-color .4s, box-shadow .4s;
 }
 body > .sidebar > .search:focus {
     border-left-width: 2px;
@@ -80,6 +80,8 @@ body > .sidebar > .search:focus {
     border-color: #009444;
     box-shadow: 0 0 10px #00944488,
                 0 0 10px #00944488 inset;
+    padding-left: calc(1rem - 2px);
+    padding-right: calc(1rem - 2px);
 }
 body > .sidebar > .compact-wrapper {
     padding: .5rem 1rem;

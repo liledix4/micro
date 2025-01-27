@@ -6,13 +6,16 @@ const sel_input = document.getElementById('input');
 const sel_result = document.getElementById('result');
 const sel_status = document.getElementById('status');
 
+
 let glob_i = 0;
 let glob_timeout;
 let glob_timeout_scroll;
 let glob_values = [];
 
+
 doIt();
 setEvents();
+
 
 function addLinks() {
     if (glob_values && glob_values.length > 0) {

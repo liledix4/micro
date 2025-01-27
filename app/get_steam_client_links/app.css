@@ -40,7 +40,7 @@ p:last-child {margin-bottom: 0;}
     border-radius: 0;
 }
 #result {
-    height: 100%;
+    flex-grow: 1;
     overflow-y: auto;
     overflow-wrap: anywhere;
     padding: 20px;

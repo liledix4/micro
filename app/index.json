@@ -1,8 +1,18 @@
 [
     {
+        "id": "2fountain",
+        "title": "2Fountain",
+        "description": "Transform text into Fountain-formatted screenplay."
+    },
+    {
         "id": "get_steam_client_links",
         "title": "Get Steam Client Links",
         "description": "Paste URLs and get clickable links that open Steam Client."
+    },
+    {
+        "id": "json_editor",
+        "title": "JSON Editor",
+        "description": "Edit JSON files in a simple way."
     },
     {
         "id": "make_color_transparent",
