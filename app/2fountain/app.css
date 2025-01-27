@@ -29,6 +29,18 @@ button {
   border: 2px solid #333333;
   border-radius: .5rem;
   overflow: hidden;
+  transition: all .4s;
+}
+button:hover {
+  border-color: #009444;
+  box-shadow: 0 0 10px #00944488,
+              0 0 10px #00944488 inset;
+}
+button:active {
+  border-color: #009444;
+  background-color: #009444;
+  box-shadow: 0 0 20px #009444;
+  color: white;
 }
 
 
