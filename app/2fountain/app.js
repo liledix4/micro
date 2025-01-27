@@ -2,6 +2,7 @@ const sel_input = document.getElementById('input');
 const sel_zoom = document.getElementById('zoom');
 const sel_zoomNumber = document.getElementById('zoom-number');
 const sel_result = document.getElementById('result');
+const sel_buttonMobileSwitch = document.getElementById('mobile-switch');
 const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\- ]+$)+/m;
 
 
@@ -296,4 +297,11 @@ function setEvents() {
   sel_input.addEventListener('input', doIt);
   sel_zoom.addEventListener('input', zoom);
   sel_zoomNumber.addEventListener('click', zoomReset);
+  sel_buttonMobileSwitch.addEventListener('click', () => {
+    const bodyClass = document.querySelector('body').classList;
+    const toggleClass = 'mobile-preview';
+    if (bodyClass.value.match(toggleClass))
+      bodyClass.remove(toggleClass);
+    else bodyClass.add(toggleClass);
+  });
 }
