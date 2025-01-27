@@ -19,6 +19,17 @@ body {
   background-color: #222222;
   overflow: hidden;
 }
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: .25rem .5rem;
+  background-color: #222222;
+  border: 2px solid #333333;
+  border-radius: .5rem;
+  overflow: hidden;
+}
 
 
 #mobile-switch {
@@ -54,13 +65,20 @@ body {
 }
 
 
+.left-pane {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #333333;
+  overflow: hidden;
+}
 #input {
   display: block;
-  min-height: 100%;
+  flex-grow: 1;
+  flex-shrink: 4444;
+  min-width: 200px;
   width: 400px;
   resize: horizontal;
   border: 0;
-  border-right: 2px solid #333333;
   color: inherit;
   font-size: .75rem;
   background-color: #00000000;
@@ -159,18 +177,61 @@ body {
 }
 
 
-@media all and (max-width: 800px) {
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 1;
+  gap: .5rem;
+  padding: .5rem;
+  flex-direction: row;
+  border-top: 2px solid #333333;
+}
+.action-buttons + .action-buttons {
+  border-top: none;
+  padding-top: 0;
+}
+.action-buttons * {
+  flex-grow: 1;
+  max-width: 100px;
+}
+
+
+@media screen and (max-width: 800px) {
   #mobile-switch {
     display: block;
   }
   #input {
-    border: none;
-    resize: none;
     min-width: 100%;
     max-width: 100%;
+    resize: none;
+  }
+  .left-pane {
+    border: none;
+    flex-grow: 1;
+    flex-shrink: 4444;
   }
   body:not(.mobile-preview) .right-pane,
-  body.mobile-preview #input {
+  body.mobile-preview .left-pane {
     display: none;
+  }
+}
+@media print {
+  #mobile-switch,
+  .left-pane,
+  .right-pane > *:not(#result) {
+    display: none !important;
+  }
+  body,
+  .main-view,
+  .right-pane {
+    position: initial;
+    display: initial;
+    overflow: initial;
+    background-color: initial;
+  }
+  #result * {
+    color: black !important;
   }
 }

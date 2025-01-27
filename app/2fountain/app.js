@@ -3,6 +3,14 @@ const sel_zoom = document.getElementById('zoom');
 const sel_zoomNumber = document.getElementById('zoom-number');
 const sel_result = document.getElementById('result');
 const sel_buttonMobileSwitch = document.getElementById('mobile-switch');
+const sel_buttonTxtOpen = document.getElementById('open-txt');
+const sel_buttonTxtSave = document.getElementById('save-txt');
+const sel_buttonTxtCopy = document.getElementById('copy-txt');
+const sel_buttonTxtShare = document.getElementById('share-txt');
+const sel_buttonPrint = document.getElementById('print');
+const sel_buttonFountainSave = document.getElementById('save-fountain');
+const sel_buttonFountainCopy = document.getElementById('copy-fountain');
+const sel_buttonFountainShare = document.getElementById('share-fountain');
 const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\- ]+$)+/m;
 
 
@@ -303,5 +311,33 @@ function setEvents() {
     if (bodyClass.value.match(toggleClass))
       bodyClass.remove(toggleClass);
     else bodyClass.add(toggleClass);
+  });
+  sel_buttonTxtOpen.addEventListener('click', () => {
+    alert('Doesn\'t work yet. Wait for updates!');
+  });
+  sel_buttonTxtSave.addEventListener('click', () => {
+    alert('Doesn\'t work yet. Wait for updates!');
+  });
+  sel_buttonTxtCopy.addEventListener('click', () => {
+    alert('Doesn\'t work yet. Wait for updates!');
+  });
+  sel_buttonTxtShare.addEventListener('click', () => {
+    navigator.share({
+      text: sel_input.value
+    });
+  });
+  sel_buttonPrint.addEventListener('click', () => {
+    window.print();
+  });
+  sel_buttonFountainSave.addEventListener('click', () => {
+    alert('Doesn\'t work yet. Wait for updates!');
+  });
+  sel_buttonFountainCopy.addEventListener('click', () => {
+    alert('Doesn\'t work yet. Wait for updates!');
+  });
+  sel_buttonFountainShare.addEventListener('click', () => {
+    navigator.share({
+      text: sel_result.innerText
+    });
   });
 }

@@ -9,13 +9,29 @@
 <body>
   <div id="mobile-switch">Switch editor/preview</div>
   <div class="main-view">
-    <textarea id="input"></textarea>
+    <div class="left-pane">
+      <textarea id="input"></textarea>
+      <div class="action-buttons">
+        <button id="open-txt">Open TXT</button>
+        <button id="save-txt">Save</button>
+      </div>
+      <div class="action-buttons">
+        <button id="copy-txt">Copy</button>
+        <button id="share-txt">Share</button>
+      </div>
+    </div>
     <div class="right-pane">
       <div class="zoom">
         <div id="zoom-number" title="Click here to reset zoom to 100%">100%</div>
         <input type="range" id="zoom" min="1" max="500" step="1" value="100">
       </div>
       <div id="result" contenteditable></div>
+      <div class="action-buttons">
+        <button id="print">Print</button>
+        <button id="save-fountain">Save</button>
+        <button id="copy-fountain">Copy</button>
+        <button id="share-fountain">Share</button>
+      </div>
     </div>
   </div>
   <script type="module" src="./app.js"></script>
