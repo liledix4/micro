@@ -31,7 +31,6 @@ const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\
 // 2DO Headers and footers
 // 2DO Import text files
 // 2DO Printing
-// 2DO Save in local storage and retrieve from it
 
 // 2DO Create a standalone module/library for converting plain text into JSON-compatible object
 // 2DO Input timeout
