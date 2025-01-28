@@ -1,25 +1,23 @@
-const sel_input = document.getElementById('input');
-const sel_zoom = document.getElementById('zoom');
-const sel_zoomContainer = document.getElementById('zoom-container');
-const sel_zoomNumber = document.getElementById('zoom-number');
-const sel_result = document.getElementById('result');
-const sel_resultShadowTop = document.querySelector('.result-container .overflow-shadow.top');
-const sel_resultShadowBottom = document.querySelector('.result-container .overflow-shadow.bottom');
-const sel_buttonMobileSwitch = document.getElementById('mobile-switch');
-const sel_buttonTxtOpen = document.getElementById('open-txt');
-const sel_buttonTxtSave = document.getElementById('save-txt');
-const sel_buttonTxtCopy = document.getElementById('copy-txt');
-const sel_buttonTxtShare = document.getElementById('share-txt');
-const sel_buttonPrint = document.getElementById('print');
-const sel_buttonFountainSave = document.getElementById('save-fountain');
-const sel_buttonFountainCopy = document.getElementById('copy-fountain');
-const sel_buttonFountainShare = document.getElementById('share-fountain');
-const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\- ]+$)+/m;
-
-
-let timeout = {
-  shadow: undefined
+let globTimeout = {};
+const selector = {
+  buttonFountainCopy: document.getElementById('copy-fountain'),
+  buttonFountainSave: document.getElementById('save-fountain'),
+  buttonFountainShare: document.getElementById('share-fountain'),
+  buttonMobileSwitch: document.getElementById('mobile-switch'),
+  buttonPrint: document.getElementById('print'),
+  buttonTxtCopy: document.getElementById('copy-txt'),
+  buttonTxtOpen: document.getElementById('open-txt'),
+  buttonTxtSave: document.getElementById('save-txt'),
+  buttonTxtShare: document.getElementById('share-txt'),
+  input: document.getElementById('input'),
+  result: document.getElementById('result'),
+  resultShadowBottom: document.querySelector('.result-container .overflow-shadow.bottom'),
+  resultShadowTop: document.querySelector('.result-container .overflow-shadow.top'),
+  zoom: document.getElementById('zoom'),
+  zoomContainer: document.getElementById('zoom-container'),
+  zoomNumber: document.getElementById('zoom-number'),
 };
+const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\- ]+$)+/m;
 
 
 // 2DO Boneyard - https://fountain.io/syntax/#boneyard
@@ -50,8 +48,8 @@ let globUnclosedComment = false;
 
 
 if (localStorage['2fountain_rawtext'])
-  sel_input.value = localStorage['2fountain_rawtext'];
-if (sel_input.value !== '')
+  selector.input.value = localStorage['2fountain_rawtext'];
+if (selector.input.value !== '')
   doIt();
 resultZoomReset();
 setEvents();
@@ -60,9 +58,9 @@ overflowShadows_ALL();
 
 
 function doIt() {
-  sel_result.innerText = '';
+  selector.result.innerText = '';
   let result = '';
-  const rawText = sel_input.value;
+  const rawText = selector.input.value;
   localStorage.setItem('2fountain_rawtext', rawText);
 
   getListOfCharacters(rawText);
@@ -90,7 +88,7 @@ function doIt() {
     }
   });
 
-  sel_result.innerHTML = result;
+  selector.result.innerHTML = result;
 }
 
 
@@ -298,9 +296,9 @@ function overflowShadows_ALL() {
 }
 function overflowShadows_result() {
   fixOverflowShadowPosition(
-    sel_result,
-    sel_resultShadowTop,
-    sel_resultShadowBottom
+    selector.result,
+    selector.resultShadowTop,
+    selector.resultShadowBottom
   );
 }
 function fixOverflowShadowPosition(elementContent, shadowTop, shadowBottom) {
@@ -311,24 +309,24 @@ function fixOverflowShadowPosition(elementContent, shadowTop, shadowBottom) {
   shadowBottom.style.bottom = bottom + 'px';
 }
 function resultZoom(value, directInput) {
-  clearTimeout(timeout.shadow);
+  clearTimeout(globTimeout.shadow);
   zoomColorIntensity(value);
-  sel_result.style.fontSize = value / 100 + 'rem';
-  sel_zoomNumber.innerText = value + '%';
+  selector.result.style.fontSize = value / 100 + 'rem';
+  selector.zoomNumber.innerText = value + '%';
   if (directInput !== true)
-    sel_zoom.value = value;
-  timeout.shadow = setTimeout(overflowShadows_result, 200);
+    selector.zoom.value = value;
+  globTimeout.shadow = setTimeout(overflowShadows_result, 200);
 }
 function zoomColorIntensity(value) {
   const colorIntensity = value / 500 + .5;
-  sel_zoom.style.accentColor = 'rgb(0,' + Number('0x94') * colorIntensity + ',' + Number('0x44') * colorIntensity + ')';
-  sel_zoom.style.filter = `drop-shadow(0 0 ${colorIntensity * 10}px rgba(0, ${Number('0x94') * colorIntensity}, ${Number('0x44') * colorIntensity}, ${colorIntensity}))`;
+  selector.zoom.style.accentColor = 'rgb(0,' + Number('0x94') * colorIntensity + ',' + Number('0x44') * colorIntensity + ')';
+  selector.zoom.style.filter = `drop-shadow(0 0 ${colorIntensity * 10}px rgba(0, ${Number('0x94') * colorIntensity}, ${Number('0x44') * colorIntensity}, ${colorIntensity}))`;
 }
 function zoom() {
-  resultZoom(sel_zoom.value, true);
+  resultZoom(selector.zoom.value, true);
 }
 function zoomMouseWheel(event) {
-  const currValue = parseInt(sel_zoom.value);
+  const currValue = parseInt(selector.zoom.value);
   let step = 5;
   if (event.shiftKey === true)
     step = 1;
@@ -343,15 +341,15 @@ function resultZoomReset() {
 
 
 function setPlaceholder() {
-  sel_input.setAttribute('placeholder', 'FEATURING:\nC1: CHARACTER #1\nC2: CHARACTER #2\n\nC1: Hi!\nC2: Ayo, what\'s up?\n\n@C1 takes time to think.\n\nC1: (with excitement) A ceiling!');
+  selector.input.setAttribute('placeholder', 'FEATURING:\nC1: CHARACTER #1\nC2: CHARACTER #2\n\nC1: Hi!\nC2: Ayo, what\'s up?\n\n@C1 takes time to think.\n\nC1: (with excitement) A ceiling!');
 }
 function setEvents() {
   window.addEventListener('resize', overflowShadows_ALL);
-  sel_input.addEventListener('input', doIt);
-  sel_zoom.addEventListener('input', zoom);
-  sel_zoomContainer.addEventListener('mousewheel', zoomMouseWheel);
-  sel_zoomNumber.addEventListener('click', resultZoomReset);
-  sel_buttonMobileSwitch.addEventListener('click', () => {
+  selector.input.addEventListener('input', doIt);
+  selector.zoom.addEventListener('input', zoom);
+  selector.zoomContainer.addEventListener('mousewheel', zoomMouseWheel);
+  selector.zoomNumber.addEventListener('click', resultZoomReset);
+  selector.buttonMobileSwitch.addEventListener('click', () => {
     const bodyClass = document.querySelector('body').classList;
     const toggleClass = 'mobile-preview';
     if (bodyClass.value.match(toggleClass))
@@ -359,32 +357,32 @@ function setEvents() {
     else bodyClass.add(toggleClass);
     overflowShadows_ALL();
   });
-  sel_buttonTxtCopy.addEventListener('click', () => {
+  selector.buttonTxtCopy.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
-  sel_buttonTxtOpen.addEventListener('click', () => {
+  selector.buttonTxtOpen.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
-  sel_buttonTxtSave.addEventListener('click', () => {
+  selector.buttonTxtSave.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
-  sel_buttonTxtShare.addEventListener('click', () => {
+  selector.buttonTxtShare.addEventListener('click', () => {
     navigator.share({
-      text: sel_input.value
+      text: selector.input.value
     });
   });
-  sel_buttonPrint.addEventListener('click', () => {
+  selector.buttonPrint.addEventListener('click', () => {
     window.print();
   });
-  sel_buttonFountainCopy.addEventListener('click', () => {
+  selector.buttonFountainCopy.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
-  sel_buttonFountainSave.addEventListener('click', () => {
+  selector.buttonFountainSave.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
-  sel_buttonFountainShare.addEventListener('click', () => {
+  selector.buttonFountainShare.addEventListener('click', () => {
     navigator.share({
-      text: sel_result.innerText
+      text: selector.result.innerText
     });
   });
 }
