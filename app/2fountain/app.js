@@ -161,7 +161,7 @@ function findComments(str) {
   return str;
 }
 function textReplaceCharacterShortcuts(str) {
-  const characterShortcuts = str.match(/@[a-z0-9\?\.\-]+/gi);
+  const characterShortcuts = str.match(/@[^@\s\n'’"“”\-\?!\.]+/gi);
   if (!characterShortcuts) return str;
   characterShortcuts.forEach(shortcut => {
     str = str.replaceAll(
