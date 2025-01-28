@@ -17,6 +17,11 @@ const sel_buttonFountainShare = document.getElementById('share-fountain');
 const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\- ]+$)+/m;
 
 
+let timeout = {
+  shadow: undefined
+};
+
+
 // 2DO Boneyard - https://fountain.io/syntax/#boneyard
 // 2DO Centered Text - https://fountain.io/syntax/#centered-text
 // 2DO Dual Dialogue - https://fountain.io/syntax/#dual-dialogue
@@ -48,7 +53,7 @@ if (localStorage['2fountain_rawtext'])
   sel_input.value = localStorage['2fountain_rawtext'];
 if (sel_input.value !== '')
   doIt();
-zoomReset();
+resultZoomReset();
 setEvents();
 setPlaceholder();
 overflowShadows_ALL();
@@ -305,12 +310,14 @@ function fixOverflowShadowPosition(elementContent, shadowTop, shadowBottom) {
   shadowBottom.style.width = width + 'px';
   shadowBottom.style.bottom = bottom + 'px';
 }
-function setZoom(value, directInput) {
+function resultZoom(value, directInput) {
+  clearTimeout(timeout.shadow);
   zoomColorIntensity(value);
   sel_result.style.fontSize = value / 100 + 'rem';
   sel_zoomNumber.innerText = value + '%';
   if (directInput !== true)
     sel_zoom.value = value;
+  timeout.shadow = setTimeout(overflowShadows_result, 200);
 }
 function zoomColorIntensity(value) {
   const colorIntensity = value / 500 + .5;
@@ -318,7 +325,7 @@ function zoomColorIntensity(value) {
   sel_zoom.style.filter = `drop-shadow(0 0 ${colorIntensity * 10}px rgba(0, ${Number('0x94') * colorIntensity}, ${Number('0x44') * colorIntensity}, ${colorIntensity}))`;
 }
 function zoom() {
-  setZoom(sel_zoom.value, true);
+  resultZoom(sel_zoom.value, true);
 }
 function zoomMouseWheel(event) {
   const currValue = parseInt(sel_zoom.value);
@@ -326,12 +333,12 @@ function zoomMouseWheel(event) {
   if (event.shiftKey === true)
     step = 1;
   if (event.wheelDelta > 0 && currValue <= 500 - step)
-    setZoom(currValue + step);
+    resultZoom(currValue + step);
   else if (event.wheelDelta < 0 && currValue >= 1 + step)
-    setZoom(currValue - step);
+    resultZoom(currValue - step);
 }
-function zoomReset() {
-  setZoom(100);
+function resultZoomReset() {
+  resultZoom(100);
 }
 
 
@@ -343,7 +350,7 @@ function setEvents() {
   sel_input.addEventListener('input', doIt);
   sel_zoom.addEventListener('input', zoom);
   sel_zoomContainer.addEventListener('mousewheel', zoomMouseWheel);
-  sel_zoomNumber.addEventListener('click', zoomReset);
+  sel_zoomNumber.addEventListener('click', resultZoomReset);
   sel_buttonMobileSwitch.addEventListener('click', () => {
     const bodyClass = document.querySelector('body').classList;
     const toggleClass = 'mobile-preview';
