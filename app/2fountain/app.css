@@ -297,6 +297,7 @@ button .micon {
 
 .overflow-shadow {
   position: absolute;
+  pointer-events: none;
 }
 .overflow-shadow.top,
 .overflow-shadow.bottom {

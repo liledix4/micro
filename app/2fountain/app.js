@@ -1,7 +1,10 @@
 const sel_input = document.getElementById('input');
 const sel_zoom = document.getElementById('zoom');
+const sel_zoomContainer = document.getElementById('zoom-container');
 const sel_zoomNumber = document.getElementById('zoom-number');
 const sel_result = document.getElementById('result');
+const sel_resultShadowTop = document.querySelector('.result-container .overflow-shadow.top');
+const sel_resultShadowBottom = document.querySelector('.result-container .overflow-shadow.bottom');
 const sel_buttonMobileSwitch = document.getElementById('mobile-switch');
 const sel_buttonTxtOpen = document.getElementById('open-txt');
 const sel_buttonTxtSave = document.getElementById('save-txt');
@@ -48,6 +51,7 @@ if (sel_input.value !== '')
 zoomReset();
 setEvents();
 setPlaceholder();
+overflowShadows_ALL();
 
 
 function doIt() {
@@ -284,22 +288,50 @@ function extendSentenceSpaces(str) {
 }
 
 
+function overflowShadows_ALL() {
+  overflowShadows_result();
+}
+function overflowShadows_result() {
+  fixOverflowShadowPosition(
+    sel_result,
+    sel_resultShadowTop,
+    sel_resultShadowBottom
+  );
+}
+function fixOverflowShadowPosition(elementContent, shadowTop, shadowBottom) {
+  const width = elementContent.clientWidth;
+  const bottom = -shadowBottom.clientHeight + (elementContent.offsetHeight - elementContent.clientHeight);
+  shadowTop.style.width = width + 'px';
+  shadowBottom.style.width = width + 'px';
+  shadowBottom.style.bottom = bottom + 'px';
+}
+function setZoom(value, directInput) {
+  zoomColorIntensity(value);
+  sel_result.style.fontSize = value / 100 + 'rem';
+  sel_zoomNumber.innerText = value + '%';
+  if (directInput !== true)
+    sel_zoom.value = value;
+}
 function zoomColorIntensity(value) {
   const colorIntensity = value / 500 + .5;
   sel_zoom.style.accentColor = 'rgb(0,' + Number('0x94') * colorIntensity + ',' + Number('0x44') * colorIntensity + ')';
   sel_zoom.style.filter = `drop-shadow(0 0 ${colorIntensity * 10}px rgba(0, ${Number('0x94') * colorIntensity}, ${Number('0x44') * colorIntensity}, ${colorIntensity}))`;
 }
 function zoom() {
-  const value = sel_zoom.value;
-  zoomColorIntensity(value);
-  sel_zoomNumber.innerText = value + '%';
-  sel_result.style.fontSize = value / 100 + 'rem';
+  setZoom(sel_zoom.value, true);
+}
+function zoomMouseWheel(event) {
+  const currValue = parseInt(sel_zoom.value);
+  let step = 5;
+  if (event.shiftKey === true)
+    step = 1;
+  if (event.wheelDelta > 0 && currValue <= 500 - step)
+    setZoom(currValue + step);
+  else if (event.wheelDelta < 0 && currValue >= 1 + step)
+    setZoom(currValue - step);
 }
 function zoomReset() {
-  const value = sel_zoom.value = 100;
-  zoomColorIntensity(value);
-  sel_result.style.fontSize = null;
-  sel_zoomNumber.innerText = '100%';
+  setZoom(100);
 }
 
 
@@ -307,8 +339,10 @@ function setPlaceholder() {
   sel_input.setAttribute('placeholder', 'FEATURING:\nC1: CHARACTER #1\nC2: CHARACTER #2\n\nC1: Hi!\nC2: Ayo, what\'s up?\n\n@C1 takes time to think.\n\nC1: (with excitement) A ceiling!');
 }
 function setEvents() {
+  window.addEventListener('resize', overflowShadows_ALL);
   sel_input.addEventListener('input', doIt);
   sel_zoom.addEventListener('input', zoom);
+  sel_zoomContainer.addEventListener('mousewheel', zoomMouseWheel);
   sel_zoomNumber.addEventListener('click', zoomReset);
   sel_buttonMobileSwitch.addEventListener('click', () => {
     const bodyClass = document.querySelector('body').classList;
@@ -316,6 +350,7 @@ function setEvents() {
     if (bodyClass.value.match(toggleClass))
       bodyClass.remove(toggleClass);
     else bodyClass.add(toggleClass);
+    overflowShadows_ALL();
   });
   sel_buttonTxtOpen.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
