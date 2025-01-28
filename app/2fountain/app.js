@@ -300,7 +300,7 @@ function overflowShadows_result() {
 }
 function fixOverflowShadowPosition(elementContent, shadowTop, shadowBottom) {
   const width = elementContent.clientWidth;
-  const bottom = -shadowBottom.clientHeight + (elementContent.offsetHeight - elementContent.clientHeight);
+  const bottom = elementContent.offsetHeight - elementContent.clientHeight;
   shadowTop.style.width = width + 'px';
   shadowBottom.style.width = width + 'px';
   shadowBottom.style.bottom = bottom + 'px';
@@ -352,13 +352,13 @@ function setEvents() {
     else bodyClass.add(toggleClass);
     overflowShadows_ALL();
   });
+  sel_buttonTxtCopy.addEventListener('click', () => {
+    alert('Doesn\'t work yet. Wait for updates!');
+  });
   sel_buttonTxtOpen.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
   sel_buttonTxtSave.addEventListener('click', () => {
-    alert('Doesn\'t work yet. Wait for updates!');
-  });
-  sel_buttonTxtCopy.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
   sel_buttonTxtShare.addEventListener('click', () => {
@@ -369,10 +369,10 @@ function setEvents() {
   sel_buttonPrint.addEventListener('click', () => {
     window.print();
   });
-  sel_buttonFountainSave.addEventListener('click', () => {
+  sel_buttonFountainCopy.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
-  sel_buttonFountainCopy.addEventListener('click', () => {
+  sel_buttonFountainSave.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
   });
   sel_buttonFountainShare.addEventListener('click', () => {

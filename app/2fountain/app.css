@@ -204,7 +204,7 @@ button .micon {
   white-space: pre-wrap;
   overflow: auto;
   overflow-wrap: anywhere;
-  padding: 2rem 1rem;
+  padding: 4rem 1rem;
   font-family: 'Courier Prime', 'Courier New Regular', 'Courier New', 'JetBrains Mono', monospace;
   font-weight: normal;
   outline: none;
@@ -302,21 +302,15 @@ button .micon {
 .overflow-shadow.top,
 .overflow-shadow.bottom {
   left: 0; right: 0;
-  height: 20px;
+  height: 4rem;
 }
 .overflow-shadow.top {
-  top: -20px;
-  box-shadow:
-    0 10px 10px #222222,
-    0 15px 15px #222222,
-    0 20px 20px #222222;
+  top: 0;
+  background: linear-gradient(180deg, #222222, #222222cc, #22222222);
 }
 .overflow-shadow.bottom {
-  bottom: -20px;
-  box-shadow:
-    0 -10px 10px #222222,
-    0 -15px 15px #222222,
-    0 -20px 20px #222222;
+  bottom: 0;
+  background: linear-gradient(0deg, #222222, #222222cc, #22222222);
 }
 
 
