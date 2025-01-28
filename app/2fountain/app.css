@@ -210,6 +210,9 @@ button .micon {
   outline: none;
   transition: font-size .2s;
 }
+#result * {
+  break-inside: avoid;
+}
 #result *:not(note) {
   position: relative;
   display: inline-block;
@@ -249,6 +252,10 @@ button .micon {
 }
 #result dialogue-block dialogue {
   color: beige;
+}
+#result syntax {
+  outline: 1px solid #ffffff44;
+  border-radius: .25em;
 }
 
 
@@ -363,20 +370,37 @@ button .micon {
   }
 }
 @media print {
+  * {
+    text-shadow: none !important;
+  }
+  .overflow-shadow,
   #mobile-switch,
   .left-pane,
-  .right-pane > *:not(#result) {
+  .right-pane > *:not(.result-container),
+  .right-pane > .result-container > *:not(#result) {
     display: none !important;
   }
   body,
   .main-view,
-  .right-pane {
+  .right-pane,
+  .result-container,
+  #result {
+    padding: 0;
+    margin: 0;
     position: initial;
     display: initial;
     overflow: initial;
     background-color: initial;
   }
+  @page {
+    margin-left: calc(9.6pt * 8);
+    margin-top: calc(9.6pt * 8);
+    margin-bottom: calc(9.6pt * 5);
+  }
   #result * {
     color: black !important;
   }
+  #result syntax {display: none !important;}
 }
+
+/* 2DO width: calc(9.6pt * 50); */

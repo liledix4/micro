@@ -17,7 +17,7 @@ const selector = {
   zoomContainer: document.getElementById('zoom-container'),
   zoomNumber: document.getElementById('zoom-number'),
 };
-const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\- ]+$)+/m;
+const regexFeaturing = /^:[^:]*: *$(\n^[^:\(\)\s\n]+: *[^\(\)\n]+$)+/m;
 
 
 // 2DO Boneyard - https://fountain.io/syntax/#boneyard
@@ -31,7 +31,6 @@ const regexFeaturing = /^FEATURING: *$(\n^[0-9A-Za-z\?\.\-]+: *[0-9A-Za-z@#\?\.\
 // 2DO Sections and Synopses - https://fountain.io/syntax/#sections-synopses
 // 2DO Title Page - https://fountain.io/syntax/#title-page
 
-// 2DO Cyrillic support
 // 2DO Export as TXT and FOUNTAIN
 // 2DO GET requests
 // 2DO Headers and footers
@@ -75,7 +74,7 @@ function doIt() {
   rawTextArray.forEach(rawLine => {
     rawLine = findComments(rawLine.replace(/^\s+|\s+$/g,''));
     if (!rawLine.match(/^\s*$/)) { // Skip empty lines
-      const characterShortcutSplit = rawLine.split(/(?<=^[0-9A-Za-z\s\(\)\?\.\-]+):\s*/);
+      const characterShortcutSplit = rawLine.split(/(?<=^(?!\!)[^:]+):\s*(?=[^\s\n])/);
       if (characterShortcutSplit.length === 1) {
         newLines(2);
         result += oneLiners(characterShortcutSplit[0]);
@@ -94,30 +93,31 @@ function doIt() {
 
 function oneLiners(str) {
   function transition(str2) {
-    return `<transition>${str2.toUpperCase()}:</transition>`;
+    str2 += ':';
+    return `<transition>${str2.toUpperCase().replace(/^>\s*/g, '<syntax>></syntax>').replace(/:+$/g,':')}</transition>`;
   }
   str = textReplaceCharacterShortcuts(str);
 
   switch (true) {
     case /^\>/.test(str):
-    case /\sto$/.test(str):
+    case /\sto[:\s]*$/.test(str):
       return transition(str);
-    case /^cut$/.test(str):
+    case /^cut[:\s]*$/.test(str):
       return transition('CUT TO');
-    case /^dis$/.test(str):
-    case /^dissolve$/.test(str):
+    case /^dis[:\s]*$/.test(str):
+    case /^dissolve[:\s]*$/.test(str):
       return transition('DISSOLVE');
-    case /^disin$/.test(str):
-    case /^dissolve in$/.test(str):
+    case /^disin[:\s]*$/.test(str):
+    case /^dissolve in[:\s]*$/.test(str):
       return transition('DISSOLVE IN');
-    case /^disout$/.test(str):
-    case /^dissolve out$/.test(str):
+    case /^disout[:\s]*$/.test(str):
+    case /^dissolve out[:\s]*$/.test(str):
       return transition('DISSOLVE OUT');
-    case /^fin$/.test(str):
-    case /^fade in$/.test(str):
+    case /^fin[:\s]*$/.test(str):
+    case /^fade in[:\s]*$/.test(str):
       return transition('FADE IN');
-    case /^fout$/.test(str):
-    case /^fade out$/.test(str):
+    case /^fout[:\s]*$/.test(str):
+    case /^fade out[:\s]*$/.test(str):
       return transition('FADE OUT');
   }
 
@@ -129,7 +129,7 @@ function oneLiners(str) {
       let prefix = split[0];
       const text = cookText(split[1]);
       if (prefix === '.') {
-        prefix = '';
+        prefix = '<syntax>.</syntax>';
         prefixSpace = '';
       };
       result = prefix + prefixSpace + text;
@@ -137,7 +137,7 @@ function oneLiners(str) {
     return `<scene>${result.toUpperCase()}</scene>`;
   }
   else {
-    return `<action>` + cookText(str) + '</action>';
+    return `<action>` + cookText(str.replace(/^!\s*/,'<syntax>!</syntax>')) + '</action>';
   }
 }
 function findComments(str) {
@@ -185,7 +185,7 @@ function mergeDialogue(rawArray) {
 function dialogue(character, dialogue) {
   dialogue = dialogueChain(dialogue);
   character = properCharacter(character);
-  return `<character>${character.toUpperCase()}</character><br><dialogue-block>${dialogue}</dialogue-block>`;
+  return `<character-block><character>${character.toUpperCase()}</character><br><dialogue-block>${dialogue}</dialogue-block></character-block>`;
 }
 function properCharacter(rawCharacter) {
   let result = '';
@@ -216,7 +216,7 @@ function properCharacter(rawCharacter) {
   else result = getCharacterNameFromShortcut(rawCharacter);
 
   if (result.match(/^[^\w]/))
-    result = '@' + result;
+    result = '<syntax>@</syntax>' + result;
 
   return result;
 }
@@ -249,7 +249,7 @@ function getListOfCharacters(rawText) {
     result = {};
     const rawArray = rawFeaturing[0].toLowerCase().split(/\n/);
     rawArray.forEach(rawCharacter => {
-      if (rawCharacter !== 'FEATURING:') {
+      if (!rawCharacter.match(/:[^:]*:/)) {
         const rawCharacterArray = rawCharacter.split(/:\s*/);
         result[rawCharacterArray[0]] = rawCharacterArray[1];
       }
@@ -287,7 +287,7 @@ function fixApostrophes(str) {
   return str.replace(/'/g, '’');
 }
 function extendSentenceSpaces(str) {
-  return str.replace(/(?<=[!"\.\?]+) *(?=[A-Z0-9"])/g, '  ');
+  return str.replace(/(?<=\w+[!"\.\?]+) *(?=[A-Z0-9А-Я’'"“])/g, '  ');
 }
 
 
