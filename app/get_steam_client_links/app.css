@@ -28,7 +28,9 @@ p:last-child {margin-bottom: 0;}
     display: block;
     min-width: 100%;
     resize: vertical;
-    min-height: 200px;
+    height: 200px;
+    max-height: 100%;
+    flex-shrink: 0;
     border: 0;
     border-bottom: 2px solid #333333;
     color: inherit;
@@ -36,14 +38,15 @@ p:last-child {margin-bottom: 0;}
     background-color: #00000000;
     outline: none;
     font-family: 'JetBrains Mono', monospace;
-    padding: 20px;
+    padding: 1rem;
     border-radius: 0;
 }
 #result {
     flex-grow: 1;
+    flex-shrink: 4444;
     overflow-y: auto;
     overflow-wrap: anywhere;
-    padding: 20px;
+    padding: 1rem;
 }
 #status {
     padding: .5em 1rem;

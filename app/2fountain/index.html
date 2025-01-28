@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>2Fountain</title>
   <link rel="stylesheet" href="./app.css">
 </head>
@@ -11,13 +11,23 @@
   <div class="main-view">
     <div class="left-pane">
       <textarea id="input"></textarea>
-      <div class="action-buttons">
-        <button id="open-txt">Open TXT</button>
-        <button id="save-txt">Save</button>
-      </div>
-      <div class="action-buttons">
-        <button id="copy-txt">Copy</button>
-        <button id="share-txt">Share</button>
+      <div class="action-buttons v2">
+        <button id="open-txt">
+          <span class="micon">folder_open</span>
+          <span class="text">Open TXT</span>
+        </button>
+        <button id="save-txt">
+          <span class="micon">save</span>
+          <span class="text">Save</span>
+        </button>
+        <button id="copy-txt">
+          <span class="micon">file_copy</span>
+          <span class="text">Copy</span>
+        </button>
+        <button id="share-txt">
+          <span class="micon">share</span>
+          <span class="text">Share</span>
+        </button>
       </div>
     </div>
     <div class="right-pane">
@@ -25,12 +35,28 @@
         <div id="zoom-number" title="Click here to reset zoom to 100%">100%</div>
         <input type="range" id="zoom" min="1" max="500" step="1" value="100">
       </div>
-      <div id="result" contenteditable></div>
-      <div class="action-buttons">
-        <button id="print">Print</button>
-        <button id="save-fountain">Save</button>
-        <button id="copy-fountain">Copy</button>
-        <button id="share-fountain">Share</button>
+      <div class="result-container">
+        <div id="result" contenteditable></div>
+        <div class="overflow-shadow top"></div>
+        <div class="overflow-shadow bottom"></div>
+      </div>
+      <div class="action-buttons horizontal">
+        <button id="print">
+          <span class="micon">print</span>
+          <span class="text">Print</span>
+        </button>
+        <button id="save-fountain">
+          <span class="micon">save</span>
+          <span class="text">Save</span>
+        </button>
+        <button id="copy-fountain">
+          <span class="micon">file_copy</span>
+          <span class="text">Copy</span>
+        </button>
+        <button id="share-fountain">
+          <span class="micon">share</span>
+          <span class="text">Share</span>
+        </button>
       </div>
     </div>
   </div>
