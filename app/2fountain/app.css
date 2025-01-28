@@ -174,6 +174,7 @@ button .micon {
   align-items: center;
   padding-right: .5rem;
   user-select: none;
+  z-index: 1;
 }
 .zoom #zoom-number {
   padding: .5rem;
