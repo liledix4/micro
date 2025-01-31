@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repo Version Number</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<form id="input-form">
+  <div class="text-field">
+    <span class="pattern">https://github.com/</span>
+    <input type="text" required id="username" placeholder="Username">
+    <span class="pattern">/</span>
+    <input type="text" required id="repository" placeholder="Repository">
+    <span class="pattern">/</span>
+    <input type="text" id="directory" placeholder="Directory (blank = root)">
+    <span class="pattern">/version</span>
+  </div>
+  <div class="text-field">
+    <span class="text">Branch</span>
+    <input type="text" id="branch" value="main" placeholder="Blank = main">
+  </div>
+  <button id="check">Check</button>
+</form>
+<div id="result"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

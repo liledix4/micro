@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Submodule Helper</title>
+    <link rel="stylesheet" href="https://liledix4.github.io/css/git_submodule_helper/main.css">
+</head>
+<body>
+
+<h1><a href="https://liledix4.github.io">liledix4</a> Git Submodule Helper</h1>
+<p><i>It is assumed that you have <b><a href="https://git-scm.com/">Git</a></b> installed in your system. Test it in your terminal: <code>git -v</code></i></p>
+<hr>
+<div class="columns">
+    <div class="left">
+        <h2>Input</h2>
+    </div>
+    <div class="right">
+        <p class="input-item">
+            <label>
+                <span class="input-label-text">Repository to add as a submodule:</span>
+                <input type="text" id="repo">
+            </label>
+            <span class="input-comment"><i>(* important!)</i></span>
+        </p>
+        <p class="input-item">
+            <label>
+                <span class="input-label-text">Directory/folder in your repository to add a submodule to:</span>
+                <input type="text" id="dir">
+            </label>
+            <span class="input-comment"><i>(leave empty to add submodule to the root)</i></span>
+        </p>
+        <p class="input-item">
+            <label>
+                <span class="input-label-text">New directory/folder name for added submodule:</span>
+                <input type="text" id="submodule_dir_name">
+            </label>
+        </p>
+    </div>
+</div>
+<hr>
+<div class="columns">
+    <div class="left">
+        <h2>Step 1</h2>
+    </div>
+    <div class="right">
+        <p><b>Run this command in the terminal (Command Prompt), from the root directory/folder of your repository:</b></p>
+        <pre id="result"></pre>
+    </div>
+</div>
+<hr>
+<div class="columns">
+    <div class="left">
+        <h2>Step 1.5</h2>
+    </div>
+    <div class="right">
+        <p><b>If the contents of your submodules weren't downloaded automatically, you would like to update submodules:</b> (from the root directory of your repository, not submodule itself)</p>
+        <pre>git submodule update --init --recursive</pre>
+        <p>Otherwise, you DON'T need to do that!</p>
+    </div>
+</div>
+<hr>
+<div class="columns">
+    <div class="left">
+        <h2>Step 2</h2>
+    </div>
+    <div class="right">
+        <p>You'll see submodules available for committing. <b>Just COMMIT/PUSH to your repository!</b></p>
+    </div>
+</div>
+<hr>
+<div class="columns">
+    <div class="left">
+        <h2>Step 3</h2>
+    </div>
+    <div class="right">
+        <p>If you want to update submodules in your repository:</p>
+        <ol>
+            <li>PULL from the proper repository.</li>
+            <li>PULL from the submodule repositories.</li>
+            <li>Then, PUSH to the proper repository.</li>
+        </ol>
+    </div>
+</div>
+<hr>
+<div class="columns">
+    <div class="left">
+        <h2>Step 4</h2>
+    </div>
+    <div class="right">
+        <p><b>You're ready to go!</b> But there's one more thing:</p>
+        <p><b>AVOID making ANY changes directly to the submodules!</b> It's going to create problems for sure, unless you know what you're doing <i>(better don't risk it anyway)</i>.</p>
+    </div>
+</div>
+<hr>
+<h2>If you're cloning some repository that contains submodules FOR THE FIRST TIME</h2>
+<p><b>This modified <code>clone</code> command may be helpful for you:</b></p>
+<pre id="clone"></pre>
+<hr>
+<h2>For more information, see:</h2>
+<ul>
+    <li><a href="https://github.blog/open-source/git/working-with-submodules">github.blog/open-source/git/working-with-submodules</a></li>
+</ul>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

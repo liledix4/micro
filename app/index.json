@@ -10,6 +10,16 @@
         "description": "Paste URLs and get clickable links that open Steam Client."
     },
     {
+        "id": "git_submodule_helper",
+        "title": "Git Submodule Helper",
+        "description": "Helps with Git submodules if you feel confused."
+    },
+    {
+        "id": "json_calendar_beautifier",
+        "title": "JSON Calendar Beautifier",
+        "description": "Give a sequence of numbers, and get them formatted like a calendar month."
+    },
+    {
         "id": "json_editor",
         "title": "JSON Editor",
         "description": "Edit JSON files in a simple way."
@@ -28,6 +38,11 @@
         "id": "quick_calc",
         "title": "Quick Calculator",
         "description": "Slightly faster than your average calc."
+    },
+    {
+        "id": "repo_version_number",
+        "title": "Repo Version Number",
+        "description": "Finds \"version\" file in repositories and returns current version number."
     },
     {
         "id": "time_hex",

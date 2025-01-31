@@ -1,0 +1,209 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    font-family: 'BlinkMacSystemFont', 'Segoe UI Variable Display', system-ui, sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px black;
+}
+body {
+    margin: 0;
+    background-color: #222222;
+}
+::selection {
+    background-color: #00944488;
+    color: #ffffff;
+}
+h1 {
+    margin: 1rem 0;
+}
+h1:first-child {
+    margin-top: 0;
+}
+hr {
+    border: none;
+    border-top: 2px dashed #ffffff22;
+    margin: 1rem 0;
+}
+input, select {
+    font-family: inherit;
+}
+input, select, textarea {
+    display: inline-block;
+    font-size: inherit;
+    text-shadow: inherit;
+    padding: .25em .5em;
+    color: #ffffff;
+    background-color: #00000000;
+    border: unset;
+    border: 2px solid #ffffff00;
+    border-bottom: 2px solid #ffffff22;
+    border-radius: 0;
+    min-height: 44px;
+    outline: none;
+    transition: border .4s, box-shadow .4s;
+}
+.main-flex .top:hover input,
+.main-flex .top:hover select,
+.main-flex .top:hover textarea {
+    border-color: #ffffff22;
+    border-radius: .25em;
+}
+.main-flex .top input:hover ,
+.main-flex .top select:hover ,
+.main-flex .top textarea:hover {
+    border-color: #ffffff44;
+}
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #009444 !important;
+    box-shadow: 0 0 10px #00944488, 0 0 10px #00944488 inset;
+    border-radius: .25em;
+}
+select option {
+    color: black;
+    background-color: #ffffff;
+}
+select option:hover {
+    background-color: #dddddd;
+}
+select option:checked {
+    color: #ffffff;
+    background-color: #009444;
+}
+textarea {
+    width: 100%;
+}
+
+a {
+    display: inline-block;
+    color: #ffffff;
+    border-radius: .25em;
+    padding: .25em .5em;
+    text-decoration: none;
+    background-color: #ffffff00;
+    border: 2px solid #ffffff22;
+    transition: all .4s;
+}
+a:hover {
+    background-color: #ffffff22;
+}
+a:active {
+    background-color: #009444;
+}
+button {
+    cursor: pointer;
+    border-radius: .25em;
+    padding: .25em .5em;
+    font-family: inherit;
+    font-size: inherit;
+    border: 2px solid #ffffff22;
+    color: inherit;
+    text-shadow: inherit;
+    background-color: #ffffff00;
+    box-shadow: 0 5px 10px #00000044;
+    transition: transform .2s, border-color .2s, box-shadow .4s;
+}
+button:hover {
+    border-color: #009444;
+    box-shadow: 0 0 10px #00944488, 0 0 10px #00944488 inset;
+    transform: scale(1.1);
+}
+button:active {
+    border-color: #009444;
+    box-shadow: 0 0 20px #009444, 0 0 10px #009444 inset;
+    transform: scale(.95);
+}
+@keyframes hit-the-button {
+    0% {
+        background-color: #009444;
+        border-color: #009444;
+        box-shadow: 0 0 50px #009444;
+        z-index: 999999;
+    }
+    20% {
+        transform: scale(1.2);
+    }
+}
+
+.main-flex {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 800px;
+    margin-left: -400px;
+    display: flex;
+    flex-direction: column;
+}
+.main-flex .top {
+    padding: 20px;
+    border-bottom: 2px solid #ffffff22;
+}
+#code {
+    margin: 0;
+    padding: 20px;
+    font-size: 1.25rem;
+    overflow: auto;
+    height: 100%;
+    opacity: .4;
+    transition: opacity .4s;
+}
+#code:hover {
+    opacity: 1;
+}
+
+.config {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 4px 0;
+}
+h1 > .config {
+    margin-top: 0;
+}
+.config:last-child {
+    margin-bottom: 0;
+}
+.config > :last-child {
+    width: 100%;
+}
+.config > label:last-child > :last-child {
+    width: 100%;
+}
+
+label {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+label > span {
+    opacity: .4;
+    transition: opacity .4s;
+}
+.main-flex .top:hover label > span {
+    opacity: 1;
+}
+label > span:first-child {
+    min-width: 100px;
+    max-width: 100px;
+    text-align: right;
+}
+
+pre, code, textarea {
+    font-family: 'JetBrains Mono', monospace;
+}
+.config > button:last-child {
+    width: auto;
+}
+
+@media all and (max-width: 800px) {
+    .main-flex {
+        left: 0;
+        right: 0;
+        margin-left: 0;
+        width: auto;
+    }
+}

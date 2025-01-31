@@ -4,3 +4,6 @@
 [submodule "gears/modules/js_xhr_ajax"]
 	path = gears/modules/js_xhr_ajax
 	url = https://github.com/liledix4/js_xhr_ajax
+[submodule "gears/modules/js_clipboard"]
+	path = gears/modules/js_clipboard
+	url = https://github.com/liledix4/js_clipboard
