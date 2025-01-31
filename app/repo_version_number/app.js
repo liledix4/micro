@@ -18,7 +18,11 @@ const selector = {
 };
 
 
+localStorageLoad();
+if (localStorage['Micro_RepoVersionNumber'])
+  doIt();
 selector.button.check.addEventListener('click', doIt);
+selector.checkbox.cached.addEventListener('change', doIt);
 selector.inputForm.addEventListener('submit', (e) => {e.preventDefault()});
 selector.liledix4Presets.addEventListener('change', (e) => {
   const split = e.currentTarget.value.split('/');
@@ -74,6 +78,8 @@ function load(username, repository, branch = 'main', directory = '') {
   if (selector.checkbox.cached.checked === true)
     url = `https://cdn.jsdelivr.net/gh/${username}/${repository}/${directory}version`;
 
+  localStorageSave(username, repository, branch, directory, selector.checkbox.cached.checked);
+
   readTextFile(
     {url: url},
     result => {
@@ -86,4 +92,41 @@ function load(username, repository, branch = 'main', directory = '') {
 }
 function notValid() {
   selector.result.innerText = 'Required data is missing!';
+}
+function localStorageSave(username, repository, branch, directory, cached) {
+  if (username === undefined)
+    username = selector.username.value;
+  if (repository === undefined)
+    repository = selector.repository.value;
+  if (branch === undefined)
+    branch = selector.branch.value;
+  if (directory === undefined)
+    directory = selector.directory.value;
+  if (cached === undefined)
+    cached = selector.checkbox.cached.checked;
+
+  localStorage.setItem('Micro_RepoVersionNumber', JSON.stringify({
+    username: username,
+    repository: repository,
+    branch: branch,
+    directory: directory,
+    cached: cached,
+  }));
+}
+function localStorageLoad() {
+  if (!localStorage['Micro_RepoVersionNumber']) return;
+
+  const data = JSON.parse( localStorage['Micro_RepoVersionNumber'] );
+
+  if (data.username)
+    selector.username.value = data.username;
+  if (data.repository)
+    selector.repository.value = data.repository;
+  if (data.branch)
+    selector.branch.value = data.branch;
+  if (data.directory)
+    selector.directory.value = data.directory;
+  if (data.cached === true)
+    selector.checkbox.cached.checked = true;
+  else selector.checkbox.cached.checked = false;
 }
