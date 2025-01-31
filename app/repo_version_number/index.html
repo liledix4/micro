@@ -7,8 +7,21 @@
   <link rel="stylesheet" href="./app.css">
 </head>
 <body>
-<form id="input-form">
-  <div class="text-field">
+<form id="input_form">
+  <div class="text_field">
+    <select id="liledix4_presets">
+      <option disabled selected>liledix4 Presets</option>
+      <optgroup label="liledix4"></optgroup>
+      <optgroup label="bvsgame"></optgroup>
+      <optgroup label="ddlcnh"></optgroup>
+      <optgroup label="lilfm"></optgroup>
+    </select>
+    <label>
+      <input type="checkbox" id="cached" checked>
+      <span class="text">Load from cache</span>
+    </label>
+  </div>
+  <div class="text_field">
     <span class="pattern">https://github.com/</span>
     <input type="text" required id="username" placeholder="Username">
     <span class="pattern">/</span>
@@ -17,7 +30,7 @@
     <input type="text" id="directory" placeholder="Directory (blank = root)">
     <span class="pattern">/version</span>
   </div>
-  <div class="text-field">
+  <div class="text_field">
     <span class="text">Branch</span>
     <input type="text" id="branch" value="main" placeholder="Blank = main">
   </div>

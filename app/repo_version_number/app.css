@@ -54,7 +54,7 @@ button:active {
   box-shadow: 0 0 20px #009444;
   color: #ffffff;
 }
-#input-form {
+#input_form {
   display: flex;
   align-items: flex-start;
   border-bottom: 2px solid #333333;
