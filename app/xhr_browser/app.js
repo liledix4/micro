@@ -44,7 +44,6 @@ selector.input.addEventListener('submit', (event) => {
     readTextFile(
       xhrObject,
       result => {
-        console.log(result);
         if (typeof result === 'object') {
           if (result.status === 0) {
             selector.status.innerText = '???';
