@@ -8,6 +8,7 @@ export const selector = {
   buttonTxtOpen: document.getElementById('open-txt'),
   buttonTxtSave: document.getElementById('save-txt'),
   buttonTxtShare: document.getElementById('share-txt'),
+  fileOpenTXT: document.getElementById('open_txt_file'),
   input: document.getElementById('input'),
   paneLeft: document.querySelector('.left-pane'),
   paneRight: document.querySelector('.right-pane'),

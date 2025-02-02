@@ -48,6 +48,9 @@ span.micon {
 input, textarea {
   text-shadow: inherit;
 }
+body > input[type='file'] {
+  display: none;
+}
 button {
   display: flex;
   flex-direction: column;

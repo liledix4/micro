@@ -1,3 +1,4 @@
+import { readFile, saveToFile } from "../../gears/modules/js_file/file.js";
 import { copyText } from "./copy_text.js";
 import { overflowShadows_ALL, overflowShadows_result } from "./overflow_shadows.js";
 import { plainText2Fountain } from "./plaintext2fountain.js";
@@ -30,10 +31,18 @@ export function setEvents() {
     copyText(selector.input.value, selector.paneLeft);
   });
   selector.buttonTxtOpen.addEventListener('click', () => {
-    alert('Doesn\'t work yet. Wait for updates!');
+    selector.fileOpenTXT.click();
+  });
+  selector.fileOpenTXT.addEventListener('change', (event) => {
+    const files = event.currentTarget.files;
+    if (files)
+      readFile(files, fileContents => {
+        selector.input.value = fileContents;
+        plainText2Fountain();
+      });
   });
   selector.buttonTxtSave.addEventListener('click', () => {
-    alert('Doesn\'t work yet. Wait for updates!');
+    saveToFile('Script.txt', selector.input.value);
   });
   selector.buttonTxtShare.addEventListener('click', () => {
     navigator.share({
@@ -47,7 +56,7 @@ export function setEvents() {
     copyText(selector.result.innerText, selector.paneRight);
   });
   selector.buttonFountainSave.addEventListener('click', () => {
-    alert('Doesn\'t work yet. Wait for updates!');
+    saveToFile('Script.fountain', selector.result.innerText);
   });
   selector.buttonFountainShare.addEventListener('click', () => {
     navigator.share({

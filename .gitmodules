@@ -7,3 +7,6 @@
 [submodule "gears/modules/js_clipboard"]
 	path = gears/modules/js_clipboard
 	url = https://github.com/liledix4/js_clipboard
+[submodule "gears/modules/js_file"]
+	path = gears/modules/js_file
+	url = https://github.com/liledix4/js_file
