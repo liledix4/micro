@@ -1,3 +1,5 @@
+import { copyFromSpecificSelectedElement, copyToClipboard } from "../../gears/modules/js_clipboard/clipboard.min.js";
+
 let globTimeout = {};
 const selector = {
   buttonFountainCopy: document.getElementById('copy-fountain'),
@@ -10,6 +12,8 @@ const selector = {
   buttonTxtSave: document.getElementById('save-txt'),
   buttonTxtShare: document.getElementById('share-txt'),
   input: document.getElementById('input'),
+  paneLeft: document.querySelector('.left-pane'),
+  paneRight: document.querySelector('.right-pane'),
   result: document.getElementById('result'),
   resultShadowBottom: document.querySelector('.result-container .overflow-shadow.bottom'),
   resultShadowTop: document.querySelector('.result-container .overflow-shadow.top'),
@@ -59,6 +63,7 @@ overflowShadows_ALL();
 function doIt() {
   globUnclosedComment = false;
   selector.result.innerText = '';
+
   let result = '';
   const rawText = selector.input.value;
   localStorage.setItem('2fountain_rawtext', rawText);
@@ -69,7 +74,8 @@ function doIt() {
   const rawTextArray = rawTextWithoutFeaturing.split(/\n/);
 
   function newLines(num) {
-    if (result !== '') result += '<br>'.repeat(num);
+    if (result !== '')
+      result += '<br>'.repeat(num);
   }
 
   rawTextArray.forEach(rawLine => {
@@ -366,6 +372,16 @@ function resultZoomReset() {
 }
 
 
+function copyText(copyFullTextFrom, expectedSelectedElement) {
+  copyFromSpecificSelectedElement(
+    copyFullTextFrom,
+    expectedSelectedElement,
+    () => {alert('✅ Copied full text!')},
+    () => {alert('✅ Copied highlighted part of text!\n\nHint: to copy full text, don\'t highlight any part of it.')}
+  );
+}
+
+
 function setPlaceholder() {
   selector.input.setAttribute('placeholder', 'FEATURING:\nC1: CHARACTER #1\nC2: CHARACTER #2\n\nC1: Hi!\nC2: Ayo, what\'s up?\n\n@C1 takes time to think.\n\nC1: (with excitement) A ceiling!');
 }
@@ -384,7 +400,7 @@ function setEvents() {
     overflowShadows_ALL();
   });
   selector.buttonTxtCopy.addEventListener('click', () => {
-    alert('Doesn\'t work yet. Wait for updates!');
+    copyText(selector.input.value, selector.paneLeft);
   });
   selector.buttonTxtOpen.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
@@ -401,7 +417,7 @@ function setEvents() {
     window.print();
   });
   selector.buttonFountainCopy.addEventListener('click', () => {
-    alert('Doesn\'t work yet. Wait for updates!');
+    copyText(selector.result.innerText, selector.paneRight);
   });
   selector.buttonFountainSave.addEventListener('click', () => {
     alert('Doesn\'t work yet. Wait for updates!');
