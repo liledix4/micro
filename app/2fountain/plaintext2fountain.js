@@ -11,6 +11,7 @@ export const regexFeaturing = /^:[^:]*: *$(\n^[^:\(\)\s\n]+: *[^\(\)\n]+$)+/m;
 export function plainText2Fountain() {
   unclosedComment(false);
   selector.result.innerText = '';
+  selector.result.classList.remove('loading');
 
   let result = '';
   const rawText = selector.input.value;

@@ -208,7 +208,10 @@ button .micon {
   font-family: 'Courier Prime', 'Courier New Regular', 'Courier New', 'JetBrains Mono', monospace;
   font-weight: normal;
   outline: none;
-  transition: font-size .2s;
+  transition: font-size .2s, opacity .4s;
+}
+#result.loading {
+  opacity: .7;
 }
 #result * {
   break-inside: avoid;
@@ -282,6 +285,7 @@ button .micon {
   gap: .5rem;
   padding: .5rem;
   flex-direction: row;
+  user-select: none;
 }
 .action-buttons + .action-buttons {
   border-top: none;
@@ -397,8 +401,12 @@ button .micon {
     margin-top: calc(9.6pt * 8);
     margin-bottom: calc(9.6pt * 5);
   }
+  #result,
   #result * {
     color: black !important;
+  }
+  #result note {
+    opacity: .44 !important;
   }
   #result syntax {display: none !important;}
 }
