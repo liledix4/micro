@@ -13,7 +13,7 @@ let timeout = {appSearch: undefined};
 let clickOnAppListItemOpensNewWindow = false;
 
 
-readTextFile({url: 'app/index.json'}, main);
+readTextFile({url: 'app/index.min.json'}, main);
 
 
 function main(response) {
