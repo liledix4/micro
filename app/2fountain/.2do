@@ -1,0 +1,21 @@
+# To-do List for 2fountain
+
+- [ ] Boneyard - <https://fountain.io/syntax/#boneyard>
+- [ ] Centered Text - <https://fountain.io/syntax/#centered-text>
+- [ ] Dual Dialogue - <https://fountain.io/syntax/#dual-dialogue>
+- [ ] Emphasis - <https://fountain.io/syntax/#emphasis>
+- [ ] Line Breaks (pay attention) - <https://fountain.io/syntax/#line-breaks>
+- [ ] Lyrics - <https://fountain.io/syntax/#lyrics>
+- [ ] Page Breaks - <https://fountain.io/syntax/#page-breaks>
+- [ ] Scene Numbers - <https://fountain.io/syntax/#scene-headings>
+- [ ] Sections and Synopses - <https://fountain.io/syntax/#sections-synopses>
+- [ ] Title Page - <https://fountain.io/syntax/#title-page>
+
+- [ ] Export as TXT and FOUNTAIN
+- [ ] GET requests
+- [ ] Headers and footers
+- [ ] Import text files
+- [ ] Printing
+
+- [ ] Create a standalone module/library for converting plain text into JSON-compatible object
+- [ ] Input timeout
