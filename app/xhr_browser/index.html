@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XHR Browser</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+  <form id="input">
+    <div id="status" title="Status code">000</div>
+    <div class="vertical_split">
+      <input type="text" id="url" placeholder="https://example.org">
+      <div class="method_split">
+        <select id="method">
+          <option value="" disabled selected>HTTP Method</option>
+          <optgroup label="Safe">
+            <option value="get">GET</option>
+            <option value="head">HEAD</option>
+            <option value="options">OPTIONS</option>
+            <option value="trace">TRACE</option>
+          </optgroup>
+          <optgroup label="Unsafe">
+            <option value="post">POST</option>
+            <option value="put">PUT</option>
+            <option value="delete">DELETE</option>
+            <option value="patch">PATCH</option>
+            <option value="connect">CONNECT</option>
+          </optgroup>
+        </select>
+        <input type="text" id="method_query" placeholder="query=string">
+      </div>
+    </div>
+    <input type="submit" id="go" value="Go">
+  </form>
+  <div id="result"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

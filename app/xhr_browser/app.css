@@ -1,0 +1,121 @@
+* {box-sizing: border-box;}
+:root {
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+}
+body {
+  position: fixed;
+  top: 0; bottom: 0; left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: #222222;
+}
+input, select {
+  background-color: #00000000;
+  border: 2px solid #333333;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  padding: .25em .5em;
+  text-shadow: inherit;
+  transition: all .4s;
+}
+input:hover,
+select:hover {
+  border-color: #444444 !important;
+}
+input:not([type='submit']):focus,
+select:focus {
+  border-color: #009444 !important;
+  box-shadow: 0 0 10px #00944488,
+              0 0 10px #00944488 inset
+              !important;
+  z-index: 1;
+}
+input[type='submit'] {
+  cursor: pointer;
+}
+input[type='submit']:hover {
+  border-color: #009444 !important;
+  box-shadow: 0 0 10px #00944488,
+              0 0 10px #00944488 inset
+              !important;
+  z-index: 1;
+}
+input[type='submit']:active {
+  border-color: #009444 !important;
+  background-color: #009444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px #009444,
+              0 0 20px #009444 inset
+              !important;
+  z-index: 1;
+}
+select option {
+  color: #ffffff;
+  background-color: #333333;
+}
+select option:checked {
+  background-color: #009444;
+  color: #ffffff;
+}
+select optgroup {
+  background-color: #333333;
+}
+#input {
+  display: flex;
+}
+#input .vertical_split {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+#input #url {
+  border-color: #00000000;
+  border-bottom-color: #333333;
+}
+#input #go {
+  border: 2px solid #00000000;
+  border-bottom-color: #333333;
+  border-left-color: #333333;
+  min-width: 50px;
+}
+#input .method_split {
+  display: flex;
+}
+#input #method {
+  border-left-color: #00000000;
+  border-top-color: #00000000;
+}
+#input #method_query {
+  flex-grow: 1;
+  border-top-color: #00000000;
+  border-left-color: #00000000;
+  border-right-color: #00000000;
+}
+#input #status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  padding: .25em .5em;
+  border: 2px solid #00000000;
+  border-bottom-color: #333333;
+  border-right-color: #333333;
+  border-left: none;
+  text-align: center;
+  min-width: 50px;
+  cursor: help;
+}
+#result {
+  flex-grow: 1;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: pre-wrap;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  padding: 1rem;
+  font-size: .75em;
+}

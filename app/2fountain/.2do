@@ -11,11 +11,7 @@
 - [ ] Sections and Synopses - <https://fountain.io/syntax/#sections-synopses>
 - [ ] Title Page - <https://fountain.io/syntax/#title-page>
 
-- [ ] Export as TXT and FOUNTAIN
 - [ ] GET requests
 - [ ] Headers and footers
-- [ ] Import text files
-- [ ] Printing
 
 - [ ] Create a standalone module/library for converting plain text into JSON-compatible object
-- [ ] Input timeout
