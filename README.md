@@ -1,2 +1,3 @@
-# micro
-Collection of tiny programs for various needs
+# liledix4 Micro
+
+Collection of tiny programs for various needs.

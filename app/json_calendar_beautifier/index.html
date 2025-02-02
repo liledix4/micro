@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Calendar Beautifier</title>
-    <link rel="stylesheet" href="./app.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Calendar Beautifier</title>
+  <link rel="stylesheet" href="./app.css">
 </head>
 <body>
 
 <div class="main-flex">
-    <div class="top">
-        <h1><a href="https://liledix4.github.io">liledix4</a> JSON Calendar Beautifier</h1>
-        <div class="config">
-            <label>
-                <span>Date:</span>
-                <select id="month" placeholder="Month">
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
-                </select>
-            </label>
-            <input type="number" id="year" placeholder="Year" value="2025" step="1">
-        </div>
-        <div class="config">
-            <label>
-                <span>Tab spaces:</span>
-                <input type="number" id="spacesize" placeholder="Amount of spaces used as tab" value="12" min="0" step="1">
-            </label>
-        </div>
-        <div class="config">
-            <label>
-                <span>Sequence of numbers:</span>
-                <textarea id="input" placeholder="Enter numbers separated by commas, like this: 1,2,3,4..." rows="5"></textarea>
-            </label>
-        </div>
-        <div class="config">
-            <button id="copy">Copy</button>
-        </div>
+  <div class="top">
+    <h1><a href="https://liledix4.github.io">liledix4</a> JSON Calendar Beautifier</h1>
+    <div class="config">
+      <label>
+        <span>Date:</span>
+        <select id="month" placeholder="Month">
+          <option value="0">January</option>
+          <option value="1">February</option>
+          <option value="2">March</option>
+          <option value="3">April</option>
+          <option value="4">May</option>
+          <option value="5">June</option>
+          <option value="6">July</option>
+          <option value="7">August</option>
+          <option value="8">September</option>
+          <option value="9">October</option>
+          <option value="10">November</option>
+          <option value="11">December</option>
+        </select>
+      </label>
+      <input type="number" id="year" placeholder="Year" value="2025" step="1">
     </div>
-    <pre id="code"></pre>
+    <div class="config">
+      <label>
+        <span>Tab spaces:</span>
+        <input type="number" id="spacesize" placeholder="Amount of spaces used as tab" value="12" min="0" step="1">
+      </label>
+    </div>
+    <div class="config">
+      <label>
+        <span>Sequence of numbers:</span>
+        <textarea id="input" placeholder="Enter numbers separated by commas, like this: 1,2,3,4..." rows="5"></textarea>
+      </label>
+    </div>
+    <div class="config">
+      <button id="copy">Copy</button>
+    </div>
+  </div>
+  <pre id="code"></pre>
 </div>
 
 <script type="module" src="./app.js"></script>

@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Hex</title>
-    <link rel="stylesheet" href="./app.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Hex</title>
+  <link rel="stylesheet" href="./app.css">
 </head>
 <body>
-    <div class="input">
-        <div class="input-row">
-            <span>From:</span>
-            <input type="number" class="year" id="from-year" step="1" value="2000">
-            <input type="number" class="month" id="from-month" step="1" min="1" max="12" value="1">
-        </div>
-        <div class="input-row">
-            <span>To:</span>
-            <input type="number" class="year" id="to-year" step="1" value="2000">
-            <input type="number" class="month" id="to-month" step="1" min="1" max="12" value="1">
-        </div>
-        <div class="input-row">
-            <span>Size:</span>
-            <input type="number" id="size" step="1" value="8" min="1">
-        </div>
-        <div class="input-row">
-            <input type="button" id="submit" value="Fire!">
-        </div>
+  <div class="input">
+    <div class="input-row">
+      <span>From:</span>
+      <input type="number" class="year" id="from-year" step="1" value="2000">
+      <input type="number" class="month" id="from-month" step="1" min="1" max="12" value="1">
     </div>
-    <pre id="result"></pre>
-    <script type="module" src="./app.js"></script>
+    <div class="input-row">
+      <span>To:</span>
+      <input type="number" class="year" id="to-year" step="1" value="2000">
+      <input type="number" class="month" id="to-month" step="1" min="1" max="12" value="1">
+    </div>
+    <div class="input-row">
+      <span>Size:</span>
+      <input type="number" id="size" step="1" value="8" min="1">
+    </div>
+    <div class="input-row">
+      <input type="button" id="submit" value="Fire!">
+    </div>
+  </div>
+  <pre id="result"></pre>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

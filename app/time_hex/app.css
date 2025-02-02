@@ -1,93 +1,93 @@
 * {box-sizing: border-box;}
 :root {
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
 }
 body {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    background-color: #222222;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: #222222;
 }
 a {
-    color: #009444;
-    text-decoration: none;
+  color: #009444;
+  text-decoration: none;
 }
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 p:first-child {margin-top: 0;}
 p:last-child {margin-bottom: 0;}
 input {
-    border: 2px solid #333333;
-    border-radius: .25em;
-    color: inherit;
-    font-size: .875rem;
-    background-color: #00000000;
-    outline: none;
-    font-family: inherit;
-    padding: .25em .5em;
-    transition: all .4s;
+  border: 2px solid #333333;
+  border-radius: .25em;
+  color: inherit;
+  font-size: .875rem;
+  background-color: #00000000;
+  outline: none;
+  font-family: inherit;
+  padding: .25em .5em;
+  transition: all .4s;
 }
 input:hover {
-    border-color: #444444;
+  border-color: #444444;
 }
 input:focus {
-    border-color: #009444;
-    box-shadow: 0 0 10px #00944488,
-                0 0 10px #00944488 inset;
+  border-color: #009444;
+  box-shadow: 0 0 10px #00944488,
+        0 0 10px #00944488 inset;
 }
 input[type='button'] {
-    border-color: #00000000;
-    box-shadow: none;
-    cursor: pointer;
-    background-color: #333333;
+  border-color: #00000000;
+  box-shadow: none;
+  cursor: pointer;
+  background-color: #333333;
 }
 input[type='button']:hover {
-    border-color: #009444;
-    box-shadow: 0 0 10px #00944488,
-                0 0 10px #00944488 inset;
+  border-color: #009444;
+  box-shadow: 0 0 10px #00944488,
+        0 0 10px #00944488 inset;
 }
 input[type='button']:active {
-    background-color: #009444;
-    box-shadow: 0 0 10px #00944488,
-                0 0 10px #00944488 inset;
-    color: white;
+  background-color: #009444;
+  box-shadow: 0 0 10px #00944488,
+        0 0 10px #00944488 inset;
+  color: white;
 }
 .input {
-    border-bottom: 2px solid #333333;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    gap: 10px;
+  border-bottom: 2px solid #333333;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
 }
 .input-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 .input-row > span {
-    min-width: 44px;
-    text-align: right;
+  min-width: 44px;
+  text-align: right;
 }
 .input-row > .year {
-    width: 100px;
+  width: 100px;
 }
 .input-row > .month {
-    width: 60px;
+  width: 60px;
 }
 #result {
-    white-space: pre-wrap;
-    height: 100%;
-    overflow: auto;
-    padding: 20px;
-    margin: 0;
+  white-space: pre-wrap;
+  height: 100%;
+  overflow: auto;
+  padding: 20px;
+  margin: 0;
 }
