@@ -57,6 +57,7 @@ overflowShadows_ALL();
 
 
 function doIt() {
+  globUnclosedComment = false;
   selector.result.innerText = '';
   let result = '';
   const rawText = selector.input.value;
@@ -72,17 +73,27 @@ function doIt() {
   }
 
   rawTextArray.forEach(rawLine => {
-    rawLine = findComments(rawLine.replace(/^\s+|\s+$/g,''));
+    rawLine = rawLine.replace(/^\s+|\s+$/g,'');
     if (!rawLine.match(/^\s*$/)) { // Skip empty lines
-      const characterShortcutSplit = rawLine.split(/(?<=^(?!\!)[^:]+):\s*(?=[^\s\n])/);
-      if (characterShortcutSplit.length === 1) {
+      rawLine = findComments(rawLine);
+      if (rawLine.match(/^<note>/)) {
         newLines(2);
-        result += oneLiners(characterShortcutSplit[0]);
+        result += cookText(rawLine);
       }
-      else if (characterShortcutSplit.length > 0) {
-        let dialogueString = mergeDialogue(characterShortcutSplit);
-        newLines(2);
-        result += dialogue( characterShortcutSplit[0], cookText(dialogueString) );
+      else {
+        const characterShortcutSplit = rawLine.split(/(?<=^(?!\!)[^:]+):\s*(?=[^\s\n])/);
+        if (characterShortcutSplit.length === 1) {
+          newLines(2);
+          result += oneLiners(characterShortcutSplit[0]);
+        }
+        else if (characterShortcutSplit.length > 0) {
+          let dialogueString = cookText(mergeDialogue(characterShortcutSplit));
+          newLines(2);
+          if (dialogueString.match(/^<note>/))
+            result += cookText('@' + characterShortcutSplit[0] + ': ' + dialogueString);
+          else
+            result += dialogue( characterShortcutSplit[0], dialogueString );
+        }
       }
     }
   });
@@ -94,9 +105,8 @@ function doIt() {
 function oneLiners(str) {
   function transition(str2) {
     str2 += ':';
-    return `<transition>${str2.toUpperCase().replace(/^>\s*/g, '<syntax>></syntax>').replace(/:+$/g,':')}</transition>`;
+    return `<transition>${ fountainSyntax(/^>\s*/g, '>', str2.toUpperCase()).replace(/:+$/g,':') }</transition>`;
   }
-  str = textReplaceCharacterShortcuts(str);
 
   switch (true) {
     case /^\>/.test(str):
@@ -137,55 +147,36 @@ function oneLiners(str) {
     return `<scene>${result.toUpperCase()}</scene>`;
   }
   else {
-    return `<action>` + cookText(str.replace(/^!\s*/,'<syntax>!</syntax>')) + '</action>';
+    return `<action>` + cookText( fountainSyntax(/^!\s*/g, '!', str) ) + '</action>';
   }
-}
-function findComments(str) {
-  const matchOpening = str.match(/\[{2}/g);
-  if (globUnclosedComment === true)
-    str = '<note>' + str;
-  if (matchOpening || globUnclosedComment === true) {
-    const matchClosing = str.match(/\]{2}/g);
-    console.log(str, matchClosing);
-    if (globUnclosedComment === false)
-      str = str.replace(/\[{2}/g, '<note>[[');
-    if (matchClosing) {
-      str = str.replace(/\]{2}/g, ']]</note>');
-      globUnclosedComment = false;
-    }
-    else {
-      str += '</note>';
-      globUnclosedComment = true;
-    }
-  }
-  return str;
-}
-function textReplaceCharacterShortcuts(str) {
-  const characterShortcuts = str.match(/@[^@\s\n'’"“”\-\?!\.]+/gi);
-  if (!characterShortcuts) return str;
-  characterShortcuts.forEach(shortcut => {
-    str = str.replaceAll(
-      shortcut,
-      getCharacterNameFromShortcut(
-        shortcut.replace('@','')
-      ).toUpperCase()
-    );
-  });
-  return str;
 }
 function mergeDialogue(rawArray) {
   if (rawArray.length === 2)
-    return rawArray[1] + '<br>';
+    return rawArray[1];
+
   let result;
   for (let i = 1; i < rawArray.length; i++) {
     result += rawArray[i];
   }
-  return result + '<br>';
+  return result;
 }
 function dialogue(character, dialogue) {
   dialogue = dialogueChain(dialogue);
   character = properCharacter(character);
   return `<character-block><character>${character.toUpperCase()}</character><br><dialogue-block>${dialogue}</dialogue-block></character-block>`;
+}
+function dialogueChain(initDialogue) {
+  let dialogueArray = initDialogue.split(/\s*(?=\()|(?<=\))\s*/);
+  let result = '';
+  dialogueArray.forEach(str => {
+    str = textReplaceCharacterShortcuts(str);
+    if (result !== '')
+      result += '<br>';
+    if (str.startsWith('('))
+      result += `<parenthetical>${str}</parenthetical>`;
+    else result += `<dialogue>${str}</dialogue>`;
+  });
+  return result;
 }
 function properCharacter(rawCharacter) {
   let result = '';
@@ -220,25 +211,38 @@ function properCharacter(rawCharacter) {
 
   return result;
 }
-function getCharacterNameFromShortcut(character) {
-  character = character.toLowerCase();
-  if (globCharacterShortcuts !== undefined && globCharacterShortcuts[character]) {
-    return globCharacterShortcuts[character];
+function findComments(str) {
+  const matchOpening = str.match(/\[{2}/g);
+  if (globUnclosedComment === true)
+    str = '<note>' + str;
+  if (matchOpening || globUnclosedComment === true) {
+    const matchClosing = str.match(/\]{2}/g);
+    if (globUnclosedComment === false)
+      str = str.replace(/\[{2}/g, '<note><syntax>[[</syntax>');
+    if (matchClosing) {
+      str = str.replace(/\]{2}/g, '<syntax>]]</syntax></note>');
+      globUnclosedComment = false;
+    }
+    else {
+      str += '</note>';
+      globUnclosedComment = true;
+    }
   }
-  else return character;
+  return str;
 }
-function dialogueChain(initDialogue) {
-  let dialogueArray = initDialogue.split(/\s*(?=\()|(?<=\))\s*/);
-  let result = '';
-  dialogueArray.forEach(str => {
-    str = textReplaceCharacterShortcuts(str);
-    if (result !== '')
-      result += '<br>';
-    if (str.startsWith('('))
-      result += `<parenthetical>${str}</parenthetical>`;
-    else result += `<dialogue>${str}</dialogue>`;
-  });
-  return result;
+function fountainSyntax(criteria, replaceTo, srcString) {
+  const rejectCondition1 = criteria === undefined;
+  const rejectCondition2 = criteria.constructor.name !== 'String' && criteria.constructor.name !== 'RegExp';
+  const rejectCondition3 = replaceTo !== undefined && replaceTo.constructor.name !== 'String';
+  const rejectConditions = rejectCondition1 || rejectCondition2 || rejectCondition3;
+
+  if (rejectConditions)
+    return srcString;
+
+  if (replaceTo === undefined || replaceTo.constructor.name !== 'String')
+    replaceTo = criteria;
+
+  return srcString.replaceAll(criteria, `<syntax>${replaceTo}</syntax>`);
 }
 
 
@@ -263,10 +267,32 @@ function cookText(str) {
   return fixQuotes(
     fixApostrophes(
       extendSentenceSpaces(
-        str
+        textReplaceCharacterShortcuts(
+          str
+        )
       )
     )
   );
+}
+function textReplaceCharacterShortcuts(str) {
+  const characterShortcuts = str.match(/@[^@\s\n'’"“”\-\?!\.]+/gi);
+  if (!characterShortcuts) return str;
+  characterShortcuts.forEach(shortcut => {
+    str = str.replaceAll(
+      shortcut,
+      getCharacterNameFromShortcut(
+        shortcut.replace('@','')
+      ).toUpperCase()
+    );
+  });
+  return str;
+}
+function getCharacterNameFromShortcut(character) {
+  character = character.toLowerCase();
+  if (globCharacterShortcuts !== undefined && globCharacterShortcuts[character]) {
+    return globCharacterShortcuts[character];
+  }
+  else return character;
 }
 function fixQuotes(str) {
   let result = '';
