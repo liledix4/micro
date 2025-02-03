@@ -1,8 +1,21 @@
-import { getCharacterNameFromShortcut, textReplaceCharacterShortcuts } from "./character_list.js";
-import { cookText } from "./text_fixes.js";
+import { imp } from './import.js';
+let imported = {};
+await imp(imported, './text_fixes.js', ['cookText']);
+await imp(imported, './character_list.js', ['getCharacterNameFromShortcut']);
 
 
+export let screenplayArray = [];
 let unclosedCommentStatus = false;
+
+
+export function plainText2FountainArray(plainText) {
+  // 2DO
+}
+
+
+export function fountainHTML() {
+  // 2DO
+}
 
 
 export function oneLiners(str) {
@@ -34,45 +47,57 @@ function section(str) {
     const hashes = str.match(/(?<=^ *)#+/)[0];
     const sectionLevel = hashes.length;
     const text = str.match(/^ *#+ *(.*)/)[1];
-    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax> ` + cookText( fountainSyntax(/^ *~/g, '~', text) ) + '</fsection>';
+    addToScreenplayArray('section', text, {level: sectionLevel});
+    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax> ` + imported.cookText( fountainSyntax(/^ *~/g, '~', text) ) + '</fsection>';
   }
 }
 
 
 function synopsis(str) {
-  if (str.match(/^ *=+[^=]+/))
-    return '<synopsis>' + cookText( fountainSyntax(/^ *=+/g, '=', str) ) + '</synopsis>';
+  if (str.match(/^ *=+[^=]+/)) {
+    const text = imported.cookText( fountainSyntax(/^ *=+/g, '=', str) );
+    addToScreenplayArray('synopsis', text);
+    return `<synopsis>${text}</synopsis>`;
+  }
 }
 
 
 function pageBreak(str) {
-  if (str.match(/^ *={3,} *$/))
+  if (str.match(/^ *={3,} *$/)) {
+    addToScreenplayArray('page_break');
     return '<pagebreak><syntax>===</syntax></pagebreak>';
+  }
 }
 
 
 function centered(str) {
-  if (str.match(/^ *>.*< *$/))
-    return '<centered>' +
-      cookText(
+  if (str.match(/^ *>.*< *$/)) {
+    const text = imported.cookText(
         fountainSyntax(/^ *>/g, '>',
           fountainSyntax(/< *$/g, '<', str)
         )
-      ) +
-      '</centered>';
+      );
+    addToScreenplayArray('centered', text);
+    return `<centered>${text}</centered>`;
+  }
 }
 
 
 function lyrics(str) {
-  if (str.match(/^ *~/))
-    return '<lyrics>' + cookText( fountainSyntax(/^ *~/g, '~', str) ) + '</lyrics>';
+  if (str.match(/^ *~/)) {
+    const text = imported.cookText( fountainSyntax(/^ *~/g, '~', str) );
+    addToScreenplayArray('lyrics', text);
+    return `<lyrics>${text}</lyrics>`;
+  }
 }
 
 
 function transition(str) {
   function cookTransition(str2) {
     str2 += ':';
-    return `<transition>${ fountainSyntax(/^>\s*/g, '>', str2.toUpperCase()).replace(/:+$/g,':') }</transition>`;
+    const text = fountainSyntax(/^>\s*/g, '>', str2.toUpperCase()).replace(/:+$/g,':');
+    addToScreenplayArray('transition', text);
+    return `<transition>${text}</transition>`;
   }
 
   switch (true) {
@@ -106,21 +131,24 @@ function scene(str) {
     let split = str.split(/(?<=^(?:int|ext|est|int\/ext|i\/e)?\.)\s*/i);
     if (split[1]) {
       let prefixSpace = ' ';
-      let prefix = split[0];
-      const text = cookText(split[1]);
+      let prefix = split[0].toUpperCase();
+      const text = imported.cookText(split[1]);
       if (prefix === '.') {
         prefix = '<syntax>.</syntax>';
         prefixSpace = '';
       };
       result = prefix + prefixSpace + text;
     }
+    addToScreenplayArray('scene', result);
     return `<scene>${result.toUpperCase()}</scene>`;
   }
 }
 
 
 function action(str) {
-  return '<action>' + cookText( fountainSyntax(/^!\s*/g, '!', str) ) + '</action>';
+  const text = imported.cookText( fountainSyntax(/^!\s*/g, '!', str) );
+  addToScreenplayArray('action', text);
+  return `<action>${text}</action>`;
 }
 
 
@@ -132,8 +160,9 @@ export function unclosedComment(status) {
 
 
 export function dialogue(character, dialogueString) {
-  dialogueString = dialogueBlock(dialogueString);
   character = properCharacter(character);
+  addToScreenplayArray('character', character);
+  dialogueString = dialogueBlock(dialogueString);
   return `<character-block><character>${character}</character><br><dialogue-block>${dialogueString}</dialogue-block></character-block>`;
 }
 
@@ -160,14 +189,19 @@ export function findComments(str) {
 
 
 function dialogueBlock(initDialogue) {
-  const dialogueArray = cookText(initDialogue).split(/\s*(?=\()|(?<=\))\s*/);
+  const dialogueArray = imported.cookText(initDialogue).split(/\s*(?=\()|(?<=\))\s*/);
   let result = '';
   dialogueArray.forEach(str => {
     if (result !== '')
       result += '<br>';
-    if (str.startsWith('('))
+    if (str.startsWith('(')) {
+      addToScreenplayArray('parenthetical', str);
       result += `<parenthetical>${str}</parenthetical>`;
-    else result += `<dialogue>${str}</dialogue>`;
+    }
+    else {
+      addToScreenplayArray('dialogue', str);
+      result += `<dialogue>${str}</dialogue>`;
+    }
   });
   return result;
 }
@@ -181,7 +215,7 @@ function properCharacter(rawCharacter) {
     .forEach(str => {
       str = str.replace(/\s+$/, '');
       if (result === '')
-        result += getCharacterNameFromShortcut(str).toUpperCase();
+        result += imported.getCharacterNameFromShortcut(str).toUpperCase();
       else {
         result += ' ';
         if (!str.endsWith(')'))
@@ -221,4 +255,18 @@ export function fountainSyntax(criteria, replaceTo, srcString) {
     replaceTo = criteria;
 
   return srcString.replaceAll(criteria, `<syntax>${replaceTo}</syntax>`);
+}
+
+
+export async function resetScreenplayArray() {
+  screenplayArray = [];
+}
+async function addToScreenplayArray(type, content, more) {
+  let object = {type: type};
+  if (content)
+    object.content = content;
+  if (more && more.constructor.name === 'Object')
+    Object.assign(object, more);
+  screenplayArray.push(object);
+  return object;
 }

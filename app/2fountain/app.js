@@ -1,17 +1,19 @@
-import { setEvents } from "./events.js";
-import { setPlaceholder } from "./input_placeholder.js";
-import { getFromLocalStorage, localStorageEntryExists } from "./local_storage.js";
-import { overflowShadows_ALL } from "./overflow_shadows.js";
-import { plainText2Fountain } from "./plaintext2fountain.js";
-import { selector } from "./selectors.js";
-import { resultZoomReset } from "./zoom.js";
+import { imp } from './import.js';
+let imported = {};
+await imp(imported, './events.js', ['setEvents']);
+await imp(imported, './input_placeholder.js', ['setPlaceholder']);
+await imp(imported, './local_storage.js', ['getFromLocalStorage', 'localStorageEntryExists']);
+await imp(imported, './overflow_shadows.js', ['overflowShadows_ALL']);
+await imp(imported, './plaintext2fountain.js', ['plainText2Fountain']);
+await imp(imported, './selectors.js', ['selector']);
+await imp(imported, './zoom.js', ['resultZoomReset']);
 
 
-if (localStorageEntryExists())
-  selector.input.value = getFromLocalStorage();
-if (selector.input.value !== '')
-  plainText2Fountain();
-resultZoomReset();
-setEvents();
-setPlaceholder();
-overflowShadows_ALL();
+if (imported.localStorageEntryExists())
+  imported.selector.input.value = imported.getFromLocalStorage();
+if (imported.selector.input.value !== '')
+  imported.plainText2Fountain();
+imported.resultZoomReset();
+imported.setEvents();
+imported.setPlaceholder();
+imported.overflowShadows_ALL();

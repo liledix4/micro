@@ -1,5 +1,5 @@
 import { getListOfCharacters, regexFeaturing } from "./character_list.js";
-import { dialogue, findComments, oneLiners, unclosedComment } from "./fountain2html.js";
+import { dialogue, findComments, oneLiners, resetScreenplayArray, screenplayArray, unclosedComment } from "./fountain2html.js";
 import { saveToLocalStorage } from "./local_storage.js";
 import { selector } from "./selectors.js";
 import { cookText } from "./text_fixes.js";
@@ -8,6 +8,7 @@ import { cookText } from "./text_fixes.js";
 export function plainText2Fountain() {
   unclosedComment(false);
   selector.result.innerText = '';
+  resetScreenplayArray();
   selector.result.classList.remove('loading');
 
   let result = '';
@@ -49,6 +50,7 @@ export function plainText2Fountain() {
     }
   });
 
+  console.log(screenplayArray);
   selector.result.innerHTML = result;
 }
 
