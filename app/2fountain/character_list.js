@@ -1,6 +1,4 @@
-import { regexFeaturing } from "./plaintext2fountain.js";
-
-
+export const regexFeaturing = /^:[^:]*:? *$(\n^[^:\(\)\s\n]+: *[^\(\)\n]+$)+/m;
 let characterShortcuts = {};
 
 

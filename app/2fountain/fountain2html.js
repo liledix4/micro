@@ -6,7 +6,71 @@ let unclosedCommentStatus = false;
 
 
 export function oneLiners(str) {
-  function transition(str2) {
+  let result;
+
+  if (result === undefined)
+    result = scene(str);
+  if (result === undefined)
+    result = section(str);
+  if (result === undefined)
+    result = synopsis(str);
+  if (result === undefined)
+    result = centered(str);
+  if (result === undefined)
+    result = transition(str);
+  if (result === undefined)
+    result = lyrics(str);
+  if (result === undefined)
+    result = pageBreak(str);
+  if (result === undefined)
+    result = action(str);
+
+  return result;
+}
+
+
+function section(str) {
+  if (str.match(/^ *#+/)) {
+    const hashes = str.match(/(?<=^ *)#+/)[0];
+    const sectionLevel = hashes.length;
+    const text = str.match(/^ *#+ *(.*)/)[1];
+    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax> ` + cookText( fountainSyntax(/^ *~/g, '~', text) ) + '</fsection>';
+  }
+}
+
+
+function synopsis(str) {
+  if (str.match(/^ *=+[^=]+/))
+    return '<synopsis>' + cookText( fountainSyntax(/^ *=+/g, '=', str) ) + '</synopsis>';
+}
+
+
+function pageBreak(str) {
+  if (str.match(/^ *={3,} *$/))
+    return '<pagebreak><syntax>===</syntax></pagebreak>';
+}
+
+
+function centered(str) {
+  if (str.match(/^ *>.*< *$/))
+    return '<centered>' +
+      cookText(
+        fountainSyntax(/^ *>/g, '>',
+          fountainSyntax(/< *$/g, '<', str)
+        )
+      ) +
+      '</centered>';
+}
+
+
+function lyrics(str) {
+  if (str.match(/^ *~/))
+    return '<lyrics>' + cookText( fountainSyntax(/^ *~/g, '~', str) ) + '</lyrics>';
+}
+
+
+function transition(str) {
+  function cookTransition(str2) {
     str2 += ':';
     return `<transition>${ fountainSyntax(/^>\s*/g, '>', str2.toUpperCase()).replace(/:+$/g,':') }</transition>`;
   }
@@ -14,26 +78,29 @@ export function oneLiners(str) {
   switch (true) {
     case /^\>/.test(str):
     case /\sto[:\s]*$/.test(str):
-      return transition(str);
+      return cookTransition(str);
     case /^cut[:\s]*$/.test(str):
-      return transition('CUT TO');
+      return cookTransition('CUT TO');
     case /^dis[:\s]*$/.test(str):
     case /^dissolve[:\s]*$/.test(str):
-      return transition('DISSOLVE');
+      return cookTransition('DISSOLVE');
     case /^disin[:\s]*$/.test(str):
     case /^dissolve in[:\s]*$/.test(str):
-      return transition('DISSOLVE IN');
+      return cookTransition('DISSOLVE IN');
     case /^disout[:\s]*$/.test(str):
     case /^dissolve out[:\s]*$/.test(str):
-      return transition('DISSOLVE OUT');
+      return cookTransition('DISSOLVE OUT');
     case /^fin[:\s]*$/.test(str):
     case /^fade in[:\s]*$/.test(str):
-      return transition('FADE IN');
+      return cookTransition('FADE IN');
     case /^fout[:\s]*$/.test(str):
     case /^fade out[:\s]*$/.test(str):
-      return transition('FADE OUT');
+      return cookTransition('FADE OUT');
   }
+}
 
+
+function scene(str) {
   if (str.match(/^(int|ext|est|int\/ext|i\/e)?\.(?!\.)/i)) {
     let result = str;
     let split = str.split(/(?<=^(?:int|ext|est|int\/ext|i\/e)?\.)\s*/i);
@@ -49,9 +116,11 @@ export function oneLiners(str) {
     }
     return `<scene>${result.toUpperCase()}</scene>`;
   }
-  else {
-    return `<action>` + cookText( fountainSyntax(/^!\s*/g, '!', str) ) + '</action>';
-  }
+}
+
+
+function action(str) {
+  return '<action>' + cookText( fountainSyntax(/^!\s*/g, '!', str) ) + '</action>';
 }
 
 

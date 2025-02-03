@@ -1,11 +1,8 @@
-import { getListOfCharacters } from "./character_list.js";
+import { getListOfCharacters, regexFeaturing } from "./character_list.js";
 import { dialogue, findComments, mergeDialogue, oneLiners, unclosedComment } from "./fountain2html.js";
 import { saveToLocalStorage } from "./local_storage.js";
 import { selector } from "./selectors.js";
 import { cookText } from "./text_fixes.js";
-
-
-export const regexFeaturing = /^:[^:]*: *$(\n^[^:\(\)\s\n]+: *[^\(\)\n]+$)+/m;
 
 
 export function plainText2Fountain() {
@@ -35,7 +32,7 @@ export function plainText2Fountain() {
         result += cookText(rawLine);
       }
       else {
-        const characterShortcutSplit = rawLine.split(/(?<=^(?!\!)[^:]+):\s*(?=[^\s\n])/);
+        const characterShortcutSplit = rawLine.split(/(?<=^(?!\!)[^:\\]+):\s*(?=[^\s\n])/);
         if (characterShortcutSplit.length === 1) {
           newLines(2);
           result += oneLiners(characterShortcutSplit[0]);

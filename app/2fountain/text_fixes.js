@@ -3,14 +3,13 @@ import { textReplaceCharacterShortcuts } from "./character_list.js";
 
 export function cookText(str) {
   return fixQuotes(
+    removeEscapeBackslashes(
     fixApostrophes(
-      extendSentenceSpaces(
-        textReplaceCharacterShortcuts(
-          str
-        )
-      )
-    )
-  );
+    fixEllipses(
+    extendSentenceSpaces(
+    textReplaceCharacterShortcuts(
+      str
+  ))))));
 }
 
 
@@ -32,7 +31,17 @@ function fixQuotes(str) {
 
 
 function fixApostrophes(str) {
-  return str.replace(/'/g, '’');
+  return str.replace(/(?<!(?<=[^\\])\\)'/g, '’');
+}
+
+
+function removeEscapeBackslashes(str) {
+  return str.replace(/(?<!\\)\\/g, '');
+}
+
+
+function fixEllipses(str) {
+  return str.replace(/(?<!(?<=[^\\])\\)…/g, '...');
 }
 
 

@@ -259,9 +259,47 @@ button .micon {
 #result dialogue-block dialogue {
   color: beige;
 }
+#result fsection {
+  color: darkcyan;
+}
+#result centered {
+  text-align: center;
+  width: calc(.6em * 57);
+}
+#result synopsis {
+  color: lightpink;
+}
+#result lyrics {
+  color: chocolate;
+}
 #result syntax {
   outline: 1px solid #ffffff44;
   border-radius: .25em;
+}
+#result pagebreak {
+  width: 100%;
+  border-top: 2px dashed #333333;
+  break-inside: auto;
+  break-after: always;
+  page-break-after: always;
+  color: #555555;
+  font-weight: bold;
+  text-shadow: none;
+  text-align: center;
+  padding-top: .75em;
+}
+#result pagebreak:before {
+  content: 'PAGE BREAK';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  margin-left: -60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 120px;
+  background-color: #222222;
 }
 
 
@@ -412,6 +450,13 @@ button .micon {
     opacity: .44 !important;
   }
   #result syntax {display: none !important;}
+  #result pagebreak {
+    border: none;
+    font-size: 0;
+  }
+  #result pagebreak::before {
+    content: none;
+  }
 }
 
-/* 2DO width: calc(9.6pt * 50); */
+/* 2DO width: calc(.6em * 50); */
