@@ -17,7 +17,7 @@ export function setEvents() {
     selector.input.removeEventListener('mousemove', updateShadowsOnInputResize);
   });
   selector.zoom.addEventListener('input', zoom);
-  selector.zoomContainer.addEventListener('mousewheel', zoomMouseWheel);
+  selector.zoomContainer.addEventListener('mousewheel', zoomMouseWheel, {passive: true});
   selector.zoomNumber.addEventListener('click', resultZoomReset);
   selector.buttonMobileSwitch.addEventListener('click', () => {
     const bodyClass = document.querySelector('body').classList;

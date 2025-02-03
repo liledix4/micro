@@ -131,22 +131,10 @@ export function unclosedComment(status) {
 }
 
 
-export function mergeDialogue(rawArray) {
-  if (rawArray.length === 2)
-    return rawArray[1];
-
-  let result;
-  for (let i = 1; i < rawArray.length; i++) {
-    result += rawArray[i];
-  }
-  return result;
-}
-
-
-export function dialogue(character, dialogue) {
-  dialogue = dialogueChain(dialogue);
+export function dialogue(character, dialogueString) {
+  dialogueString = dialogueBlock(dialogueString);
   character = properCharacter(character);
-  return `<character-block><character>${character.toUpperCase()}</character><br><dialogue-block>${dialogue}</dialogue-block></character-block>`;
+  return `<character-block><character>${character}</character><br><dialogue-block>${dialogueString}</dialogue-block></character-block>`;
 }
 
 
@@ -171,11 +159,10 @@ export function findComments(str) {
 }
 
 
-function dialogueChain(initDialogue) {
-  let dialogueArray = initDialogue.split(/\s*(?=\()|(?<=\))\s*/);
+function dialogueBlock(initDialogue) {
+  const dialogueArray = cookText(initDialogue).split(/\s*(?=\()|(?<=\))\s*/);
   let result = '';
   dialogueArray.forEach(str => {
-    str = textReplaceCharacterShortcuts(str);
     if (result !== '')
       result += '<br>';
     if (str.startsWith('('))
@@ -188,15 +175,17 @@ function dialogueChain(initDialogue) {
 
 function properCharacter(rawCharacter) {
   let result = '';
-  const splitByBrackets = rawCharacter.split(/\s*(?=\()/g);
 
-  if (splitByBrackets.length > 1) {
-    let i = 0;
-    splitByBrackets.forEach(str => {
-      if (i !== 0) result += ' ';
-      if (i === 0)
-        result += getCharacterNameFromShortcut(str);
+  rawCharacter
+    .split(/\s*(?=\()/g)
+    .forEach(str => {
+      str = str.replace(/\s+$/, '');
+      if (result === '')
+        result += getCharacterNameFromShortcut(str).toUpperCase();
       else {
+        result += ' ';
+        if (!str.endsWith(')'))
+          str = str + ')';
         switch (true) {
           case /\((c|cont|contd)\)/i.test(str):
             result += '(CONT’D)'; break;
@@ -206,13 +195,11 @@ function properCharacter(rawCharacter) {
             result += '(O.S.)'; break;
           case /\(vo\)/i.test(str):
             result += '(V.O.)'; break;
-          default: result += str; break;
+          default:
+            result += str; break;
         }
       }
-      i++;
     });
-  }
-  else result = getCharacterNameFromShortcut(rawCharacter);
 
   if (result.match(/^[^\w]/))
     result = '<syntax>@</syntax>' + result;

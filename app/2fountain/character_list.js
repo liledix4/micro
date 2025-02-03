@@ -1,4 +1,4 @@
-export const regexFeaturing = /^:[^:]*:? *$(\n^[^:\(\)\s\n]+: *[^\(\)\n]+$)+/m;
+export const regexFeaturing = /^:[^:]*:? *$(\n^[^:()\s\n]+: *[^()\n]+$)+/m;
 let characterShortcuts = {};
 
 
@@ -20,8 +20,9 @@ export function getListOfCharacters(rawText) {
 
 
 export function textReplaceCharacterShortcuts(str) {
-  const shortcuts = str.match(/@[^@\s\n'’"“”\-\?!\.]+/gi);
-  if (!shortcuts) return str;
+  const shortcuts = str.match(/@[^@\s\n'’"“()”\-\?!\.]+/gi);
+  if (!shortcuts)
+    return str;
   shortcuts.forEach(sc => {
     str = str.replaceAll(
       sc,

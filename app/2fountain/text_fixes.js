@@ -5,8 +5,8 @@ export function cookText(str) {
   return fixQuotes(
     removeEscapeBackslashes(
     fixApostrophes(
-    fixEllipses(
     extendSentenceSpaces(
+    fixEllipses(
     textReplaceCharacterShortcuts(
       str
   ))))));

@@ -1,5 +1,5 @@
 import { getListOfCharacters, regexFeaturing } from "./character_list.js";
-import { dialogue, findComments, mergeDialogue, oneLiners, unclosedComment } from "./fountain2html.js";
+import { dialogue, findComments, oneLiners, unclosedComment } from "./fountain2html.js";
 import { saveToLocalStorage } from "./local_storage.js";
 import { selector } from "./selectors.js";
 import { cookText } from "./text_fixes.js";
@@ -38,7 +38,7 @@ export function plainText2Fountain() {
           result += oneLiners(characterShortcutSplit[0]);
         }
         else if (characterShortcutSplit.length > 0) {
-          let dialogueString = cookText(mergeDialogue(characterShortcutSplit));
+          let dialogueString = mergeDialogue(characterShortcutSplit);
           newLines(2);
           if (dialogueString.match(/^<note>/))
             result += cookText('@' + characterShortcutSplit[0] + ': ' + dialogueString);
@@ -50,4 +50,16 @@ export function plainText2Fountain() {
   });
 
   selector.result.innerHTML = result;
+}
+
+
+function mergeDialogue(rawArray) {
+  if (rawArray.length === 2)
+    return rawArray[1];
+
+  let result;
+  for (let i = 1; i < rawArray.length; i++) {
+    result += rawArray[i];
+  }
+  return result;
 }
