@@ -1,14 +1,14 @@
 import { textReplaceCharacterShortcuts } from "./character_list.js";
 
 
-export function cookText(str) {
+export function cookText(str, characterToCase = false) {
   return fixQuotes(
     removeEscapeBackslashes(
     fixApostrophes(
     extendSentenceSpaces(
     fixEllipses(
     textReplaceCharacterShortcuts(
-      str
+      str, characterToCase
   ))))));
 }
 

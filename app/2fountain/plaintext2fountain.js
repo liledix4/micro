@@ -30,7 +30,7 @@ export function plainText2Fountain() {
       rawLine = findComments(rawLine);
       if (rawLine.match(/^<note>/)) {
         newLines(2);
-        result += cookText(rawLine);
+        result += cookText(rawLine, 'upper');
       }
       else {
         const characterShortcutSplit = rawLine.split(/(?<=^(?!\!)[^:\\]+):\s*(?=[^\s\n])/);
@@ -42,7 +42,7 @@ export function plainText2Fountain() {
           let dialogueString = mergeDialogue(characterShortcutSplit);
           newLines(2);
           if (dialogueString.match(/^<note>/))
-            result += cookText('@' + characterShortcutSplit[0] + ': ' + dialogueString);
+            result += cookText('@' + characterShortcutSplit[0] + ': ' + dialogueString, 'upper');
           else
             result += dialogue( characterShortcutSplit[0], dialogueString );
         }

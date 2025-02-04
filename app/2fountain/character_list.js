@@ -1,44 +1,45 @@
 export const regexFeaturing = /^:[^:]*:? *$(\n^[^:()\s\n]+: *[^()\n]+$)+/m;
-let characterShortcuts = {};
+let characterShortcuts = [];
 
 
 export function getListOfCharacters(rawText) {
-  let result;
   const rawFeaturing = rawText.match(regexFeaturing);
   if (rawFeaturing) {
-    result = {};
-    const rawArray = rawFeaturing[0].toLowerCase().split(/\n/);
+    const rawArray = rawFeaturing[0].split(/\n/);
     rawArray.forEach(rawCharacter => {
       if (!rawCharacter.match(/:[^:]*:/)) {
         const rawCharacterArray = rawCharacter.split(/:\s*/);
-        result[rawCharacterArray[0]] = rawCharacterArray[1];
+        characterShortcuts.push({
+          shortcut: rawCharacterArray[0].toLowerCase(),
+          name: rawCharacterArray[1],
+          nameIndexed: rawCharacterArray[1].toLowerCase(),
+        });
       }
     });
   }
-  characterShortcuts = result;
 }
 
 
-export function textReplaceCharacterShortcuts(str) {
-  const shortcuts = str.match(/@[^@\s\n'’"“()”\-\?!\.]+/gi);
+export function textReplaceCharacterShortcuts(str, toCase) {
+  const shortcuts = str.match(/@[^@\s\n,'’"“()”\-\?!\.]+/gi);
   if (!shortcuts)
     return str;
   shortcuts.forEach(sc => {
-    str = str.replaceAll(
-      sc,
-      getCharacterNameFromShortcut(
-        sc.replace('@','')
-      ).toUpperCase()
-    );
+    let charName = getCharacterNameFromShortcut(sc.replace('@',''));
+    if (toCase === 'upper')
+      charName = charName.toUpperCase();
+    else if (toCase === 'lower')
+      charName = charName.toLowerCase();
+    str = str.replaceAll(sc, charName);
   });
   return str;
 }
 
 
 export function getCharacterNameFromShortcut(character) {
-  character = character.toLowerCase();
-  if (characterShortcuts !== undefined && characterShortcuts[character]) {
-    return characterShortcuts[character];
-  }
+  const characterObject = characterShortcuts.filter(obj => obj.shortcut === character.toLowerCase());
+  if (characterShortcuts !== undefined)
+    if (characterObject && characterObject[0])
+      return characterObject[0].name;
   else return character;
 }

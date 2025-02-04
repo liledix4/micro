@@ -48,14 +48,14 @@ function section(str) {
     const sectionLevel = hashes.length;
     const text = str.match(/^ *#+ *(.*)/)[1];
     addToScreenplayArray('section', text, {level: sectionLevel});
-    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax> ` + imported.cookText( fountainSyntax(/^ *~/g, '~', text) ) + '</fsection>';
+    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax> ` + imported.cookText( fountainSyntax(/^ *~/g, '~', text), 'upper' ) + '</fsection>';
   }
 }
 
 
 function synopsis(str) {
   if (str.match(/^ *=+[^=]+/)) {
-    const text = imported.cookText( fountainSyntax(/^ *=+/g, '=', str) );
+    const text = imported.cookText( fountainSyntax(/^ *=+/g, '=', str), 'upper' );
     addToScreenplayArray('synopsis', text);
     return `<synopsis>${text}</synopsis>`;
   }
@@ -75,7 +75,8 @@ function centered(str) {
     const text = imported.cookText(
         fountainSyntax(/^ *>/g, '>',
           fountainSyntax(/< *$/g, '<', str)
-        )
+        ),
+        'upper'
       );
     addToScreenplayArray('centered', text);
     return `<centered>${text}</centered>`;
@@ -85,7 +86,7 @@ function centered(str) {
 
 function lyrics(str) {
   if (str.match(/^ *~/)) {
-    const text = imported.cookText( fountainSyntax(/^ *~/g, '~', str) );
+    const text = imported.cookText( fountainSyntax(/^ *~/g, '~', str), 'upper' );
     addToScreenplayArray('lyrics', text);
     return `<lyrics>${text}</lyrics>`;
   }
@@ -146,7 +147,7 @@ function scene(str) {
 
 
 function action(str) {
-  const text = imported.cookText( fountainSyntax(/^!\s*/g, '!', str) );
+  const text = imported.cookText( fountainSyntax(/^!\s*/g, '!', str), 'upper' );
   addToScreenplayArray('action', text);
   return `<action>${text}</action>`;
 }
@@ -189,18 +190,20 @@ export function findComments(str) {
 
 
 function dialogueBlock(initDialogue) {
-  const dialogueArray = imported.cookText(initDialogue).split(/\s*(?=\()|(?<=\))\s*/);
+  const dialogueArray = initDialogue.split(/\s*(?=\()|(?<=\))\s*/);
   let result = '';
   dialogueArray.forEach(str => {
     if (result !== '')
       result += '<br>';
     if (str.startsWith('(')) {
-      addToScreenplayArray('parenthetical', str);
-      result += `<parenthetical>${str}</parenthetical>`;
+      const text = imported.cookText(str, 'upper');
+      addToScreenplayArray('parenthetical', text);
+      result += `<parenthetical>${text}</parenthetical>`;
     }
     else {
-      addToScreenplayArray('dialogue', str);
-      result += `<dialogue>${str}</dialogue>`;
+      const text = imported.cookText(str);
+      addToScreenplayArray('dialogue', text);
+      result += `<dialogue>${text}</dialogue>`;
     }
   });
   return result;
