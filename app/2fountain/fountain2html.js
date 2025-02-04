@@ -48,7 +48,7 @@ function section(str) {
     const sectionLevel = hashes.length;
     const text = str.match(/^ *#+ *(.*)/)[1];
     addToScreenplayArray('section', text, {level: sectionLevel});
-    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax> ` + imported.cookText( fountainSyntax(/^ *~/g, '~', text), 'upper' ) + '</fsection>';
+    return `<fsection level='${sectionLevel}'>` + `<syntax>${hashes}</syntax>` + imported.cookText( fountainSyntax(/^ *~/g, '~', text), 'upper' ) + '</fsection>';
   }
 }
 

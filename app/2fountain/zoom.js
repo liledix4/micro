@@ -11,13 +11,23 @@ export function resultZoomReset() {
 }
 export function zoomMouseWheel(event) {
   const currValue = parseInt(selector.zoom.value);
+  const min = 1;
+  const max = 500;
   let step = 5;
   if (event.shiftKey === true)
     step = 1;
-  if (event.wheelDelta > 0 && currValue <= 500 - step)
-    resultZoom(currValue + step);
-  else if (event.wheelDelta < 0 && currValue >= 1 + step)
-    resultZoom(currValue - step);
+  if (event.wheelDelta > 0) {
+    if (currValue + step > max)
+      resultZoom(max);
+    else
+      resultZoom(currValue + step);
+  }
+  else if (event.wheelDelta < 0) {
+    if (currValue - step < min)
+      resultZoom(min);
+    else
+      resultZoom(currValue - step);
+  }
 }
 
 

@@ -275,6 +275,7 @@ button .micon {
 #result syntax {
   outline: 1px solid #ffffff44;
   border-radius: .25em;
+  opacity: .4;
 }
 #result pagebreak {
   width: 100%;
