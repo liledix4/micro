@@ -17,6 +17,8 @@
   text-shadow: 0 5px 5px black;
   touch-action: pan-x pan-y;
   height: 100%;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
 }
 body {
   position: fixed;
