@@ -16,3 +16,70 @@
 - [ ] Headers and footers
 
 - [ ] Create a standalone module/library for converting plain text into JSON-compatible object
+
+## 5 February 2025
+
+### Main Menu
+
+- File
+  - New… (Ctrl+N)
+  - Open TXT… (Ctrl+O)
+  - Open URL… (Ctrl+Alt+O)
+  - Local Storage (Ctrl+L)
+  - Save TXT… (Ctrl+S)
+  - Save Fountain… (Ctrl+Shift+S)
+  - Print Screenplay… (Ctrl+P)
+  - Exit (Ctrl+W)
+- Edit
+  - Undo (Ctrl+Z)
+  - Redo (Ctrl+Y)
+  - Copy (Ctrl+C)
+  - Copy 
+  - Paste (Ctrl+V)
+- Screenplay
+  - Title Page >
+- View
+- Options
+- Share
+  - Share Source Text…
+  - Share Source Text as TXT File…
+  - Share Screenplay as Text…
+  - Share Screenplay as Fountain File…
+- Help
+  - Help File… (F1)
+  - Visit the author’s website
+  - About
+
+### Main Tabs
+
+- Scripts
+- Editor
+- Outline
+- Settings
+
+### Scripts
+
+- Groups
+- Load from URL
+
+### Editor
+
+- Scrolling it would trigger event that detects index of the rendered block
+
+### Outline
+
+### Settings
+
+### Preview Views
+
+- Presentation
+- Fountain
+- Beautified
+- Screenplay
+- Source
+
+### Source Code
+
+- Break CSS into imported parts
+- Keep replacing static imports with dynamic ones
+- **Legacy Trigger** – first script that runs. If certain browser features are not supported (meaning: some JavaScript interfaces and methods will be recognized as `undefined`), a legacy version will be triggered.
