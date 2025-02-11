@@ -3,6 +3,7 @@ let characterShortcuts = [];
 
 
 export function getListOfCharacters(rawText) {
+  characterShortcuts = [];
   const rawFeaturing = rawText.match(regexFeaturing);
   if (rawFeaturing) {
     const rawArray = rawFeaturing[0].split(/\n/);

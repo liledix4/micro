@@ -10,3 +10,9 @@
 [submodule "gears/modules/js_file"]
 	path = gears/modules/js_file
 	url = https://github.com/liledix4/js_file
+[submodule "gears/modules/js_input_limit"]
+	path = gears/modules/js_input_limit
+	url = https://github.com/liledix4/js_input_limit
+[submodule "gears/modules/altcodes"]
+	path = gears/modules/altcodes
+	url = https://github.com/liledix4/altcodes
